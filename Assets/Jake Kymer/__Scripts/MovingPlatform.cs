@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CMF
-{
+
 	//This script moves a rigidbody along a set of waypoints;
 	//It also moves any controllers on top along with it;
-	public class MovingPlatform : MonoBehaviour {
+	public class MovingPlatform : MonoBehaviour 
+	{
 
 		//Movement speed;
 		public float movementSpeed = 10f;
@@ -22,7 +22,6 @@ namespace CMF
 
 		//References to attached components;
 		Rigidbody r;
-		TriggerArea triggerArea;
 
 		//List of transforms used as waypoints;
 		public List<Transform> waypoints = new List<Transform>();
@@ -34,7 +33,6 @@ namespace CMF
 
 			//Get references to components;
 			r = GetComponent<Rigidbody>();
-			triggerArea = GetComponentInChildren<TriggerArea>();
 
 			//Disable gravity, freeze rotation of rigidbody and set to kinematic;
 			r.freezeRotation = true;
@@ -94,16 +92,6 @@ namespace CMF
 			{
 				r.transform.position += _movement;
 			}
-
-			if(triggerArea == null)
-				return;
-
-			//Move all controllrs on top of the platform the same distance;
-
-			for(int i = 0; i < triggerArea.rigidbodiesInTriggerArea.Count; i++) 
-			{
-				triggerArea.rigidbodiesInTriggerArea[i].MovePosition(triggerArea.rigidbodiesInTriggerArea[i].position + _movement);
-			}
 		}
 
 		//This function is called after the current waypoint has been reached;
@@ -145,4 +133,3 @@ namespace CMF
 			}
 		}	
 	}
-}
