@@ -9,7 +9,7 @@ public class SimplePlayerController : MonoBehaviour
     public float jumpForce = 10f;
 
     private float verticalRotation = 0f;
-    private bool isGrounded;
+    public bool isGrounded;
 
     private void Update()
     {
