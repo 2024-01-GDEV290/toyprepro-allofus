@@ -6,13 +6,25 @@ public class SimpleJumpController : MonoBehaviour
 {
     public float jumpForce = 10f;
     private bool isGrounded;
+    public Animator animator;
 
     private void Update()
     {
         // Handle player jumping
+
+        if (!isGrounded)
+        {
+            animator.SetBool("Jumping", true);
+        }
+        else
+        {
+            animator.SetBool("Jumping", false);
+        }
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             Jump();
+
         }
     }
 
