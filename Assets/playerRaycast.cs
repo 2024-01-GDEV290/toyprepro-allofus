@@ -8,10 +8,13 @@ public class playerRaycast : MonoBehaviour
 {
     public float range = 100f; // Max distance the raycast will check for objects
     public TextMeshProUGUI promptText;
+    public TextMeshProUGUI successText;
     public Image progressBarFill; // Assign this in the inspector
     private bool isLookingAtInteractable = false;
     private float holdTime = 5f; // Time in seconds to hold 'E'
     private float holdCounter = 0f; // Counter for how long 'E' has been held
+    private float delayCounter = 0f;
+    private float delayTotal = 3f;
 
 
 
@@ -27,13 +30,19 @@ public class playerRaycast : MonoBehaviour
             progressBarFill.fillAmount = holdCounter / holdTime; // Update progress bar fill
             progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
             promptText.gameObject.SetActive(false);
+            successText.gameObject.SetActive(false);
 
             if (holdCounter >= holdTime)
             {
                 Debug.Log("Action completed!");
                 // Reset for next use
-                ResetProgressBar();
+                //ResetProgressBar();
+                progressBarFill.transform.parent.gameObject.SetActive(false);
+                successText.gameObject.SetActive(true);
+                delayCounter += Time.deltaTime;
+
             }
+
         }
         else if (progressBarFill.transform.parent.gameObject.activeSelf)
         {
@@ -65,6 +74,7 @@ public class playerRaycast : MonoBehaviour
             {
                 promptText.gameObject.SetActive(false); // Hide the prompt if not looking at interactable object
                 isLookingAtInteractable = false;
+                successText.gameObject.SetActive(false);
             }
         }
         else
