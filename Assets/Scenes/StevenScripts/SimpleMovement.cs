@@ -3,23 +3,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class SimpleMovement : MonoBehaviour
 {
-    Vector3 Vec;
-    // Start is called before the first frame update  
+    public State state;
+    public float chargeValue;
+    public float currentCharge;
     void Start()
     {
 
     }
-
-    // Update is called once per frame  
     void Update()
     {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            this.transform.Translate(Vector3.forward * Time.deltaTime);
+            if(state.Charge <1000)
+            {
+                state.Charge += chargeValue;
+            }
+        }
 
-        Vec = transform.localPosition;
-        Vec.y += Input.GetAxis("Jump") * Time.deltaTime * 20;
-        Vec.x += Input.GetAxis("Horizontal") * Time.deltaTime * 20;
-        Vec.z += Input.GetAxis("Vertical") * Time.deltaTime * 20;
-        transform.localPosition = Vec;
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            this.transform.Translate(Vector3.back * Time.deltaTime);
+            if (state.Charge < 1000)
+            {
+                state.Charge += chargeValue;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            this.transform.Rotate(Vector3.up, -1);
+            if (state.Charge < 1000)
+            {
+                state.Charge += (chargeValue/2);
+            }
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            this.transform.Rotate(Vector3.up, 1);
+            if (state.Charge < 1000)
+            {
+                state.Charge += (chargeValue/2);
+            }
+        }
+        else if (state.Charge > 0)
+        {
+            state.Charge--;
+        }
+        currentCharge = state.Charge;
     }
 }  
