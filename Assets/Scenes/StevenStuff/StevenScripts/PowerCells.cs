@@ -5,11 +5,12 @@ using UnityEngine;
 public class PowerCells : MonoBehaviour
 {
     public float sentCharge;
+
     // Start is called before the first frame update
     void Start()
     {
         sentCharge = 0;
-        
+
     }
 
     // Update is called once per frame

@@ -7,7 +7,7 @@ public class SimpleMovement : MonoBehaviour
 {
     public State state;
     //public float chargeValue;
-    public float currentCharge;
+    //public float currentCharge;
     
     void Start()
     {
@@ -57,7 +57,7 @@ public class SimpleMovement : MonoBehaviour
         {
             state.Charge -= 150*Time.deltaTime;
         }
-        currentCharge = state.Charge;
+        //currentCharge = state.Charge;
         if (state.Charge > 250)
         {
             //particales
