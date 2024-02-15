@@ -756,7 +756,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.999279, g: 1, b: 0, a: 1}
-  m_Intensity: 10
+  m_Intensity: 15
   m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -869,7 +869,7 @@ MonoBehaviour:
   cylinder: {fileID: 764376658}
   dayLight: {fileID: 631834045}
   nightLight: {fileID: 2035359057}
-  timeFlowRate: 15
+  timeFlowRate: 25
   currentAngleDisplay: {fileID: 2021964567}
   currentTimeDisplay: {fileID: 613241848}
   npc: {fileID: 1834359711}
@@ -1194,7 +1194,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -2908,7 +2908,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.47731304, g: 0, b: 1, a: 1}
-  m_Intensity: 10
+  m_Intensity: 15
   m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
