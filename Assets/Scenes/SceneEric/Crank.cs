@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Crank : MonoBehaviour
 {
-    [Header("Set in Inspector")]
+    [Header("===Set in Inspector===")]
     [SerializeField] GameObject cylinder;
     [SerializeField] Light dayLight;
     private float dayIntensity;
@@ -18,14 +18,24 @@ public class Crank : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentAngleDisplay;
     [SerializeField] TextMeshProUGUI currentTimeDisplay;
 
-    [Header("Set Dynamically")]
+    [Header("NPC")]
+    [SerializeField] GameObject npc;
+
+
+    [Header("===Set Dynamically===")]
     [SerializeField] float cylinderRotation;
+    [Header("NPC")]
+    [SerializeField] Vector3 charStartPos;
+    [SerializeField] Vector3 charEndPos;
 
     private void Awake()
     {
         cylinderRotation = cylinder.transform.localEulerAngles.y;
         dayIntensity = dayLight.intensity;
         nightIntensity = nightLight.intensity;
+        charStartPos = npc.transform.position + new Vector3(2,0,2);
+        charEndPos = npc.transform.position + new Vector3(-2,0,-2);
+        npc.transform.position = charStartPos; 
     }
 
     private void Update()
@@ -47,11 +57,12 @@ public class Crank : MonoBehaviour
         // The 360 degrees of the cylinder's rotation = 24 hours
         // 360/24 = 15 degrees per hour
         // 1 min = 15 degrees/60 minutes = .25 degrees
-        float currentHour = Mathf.Floor(cylinderRotation / 15); // Storing time in 24 hour format internally. Will eventually convert to 12 hour format for display
+        float currentHour = Mathf.Floor(cylinderRotation / 15); // Storing time in 24 hour format internally. Will eventually convert to 12 hour format for display, probably
         float currentMinute = Mathf.Floor((cylinderRotation - currentHour * 15) / .25f);
         currentTimeDisplay.text = $"Current Time: {currentHour}:{currentMinute}";
-        dayLight.intensity = CalculateArc(cylinderRotation,180) * dayIntensity;
-        nightLight.intensity = CalculateArc(cylinderRotation, 0) * nightIntensity;
+        dayLight.intensity = CalculateArc(cylinderRotation,180)/180 * dayIntensity;
+        nightLight.intensity = CalculateArc(cylinderRotation, 0)/180 * nightIntensity;
+        npc.transform.position = Vector3.Lerp(charStartPos, charEndPos, CalculateArc(cylinderRotation, 180)/180);
     }
 
     void RotateClockwise()
