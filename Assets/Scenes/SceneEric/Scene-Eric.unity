@@ -876,6 +876,7 @@ MonoBehaviour:
   cylinderRotation: 0
   charStartPos: {x: 0, y: 0, z: 0}
   charEndPos: {x: 0, y: 0, z: 0}
+  timeState: 0
 --- !u!1 &702691269
 GameObject:
   m_ObjectHideFlags: 0
