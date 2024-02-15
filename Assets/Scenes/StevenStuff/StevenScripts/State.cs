@@ -7,4 +7,5 @@ public class State : ScriptableObject
 {
     //[SerializeField]
     public float Charge;
+    public float chargeValue;
 }
