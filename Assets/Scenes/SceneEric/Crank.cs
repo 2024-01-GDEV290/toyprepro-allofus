@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public enum ETimeState{
     Idle,
-    Winding,
+    WindingForward,
+    WindingReverse,
     ActorMovement
 }
 public class Crank : MonoBehaviour
@@ -26,16 +27,26 @@ public class Crank : MonoBehaviour
     [Header("NPC")]
     [SerializeField] GameObject npc;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip clickSound;
+    [SerializeField] AudioSource clickSource;
+
 
     [Header("===Set Dynamically===")]
     [SerializeField] float cylinderRotation;
     [Header("NPC")]
     [SerializeField] Vector3 charStartPos;
     [SerializeField] Vector3 charEndPos;
-    [SerializeField] ETimeState timeState; 
+    [SerializeField] ETimeState timeState;
+
+    [SerializeField] float initialRotation;
+    [SerializeField] float windupRotation;
+    [SerializeField] float totalRotation;
 
     private void Awake()
     {
+        windupRotation = 0;
+        initialRotation = 0;
         timeState = ETimeState.Idle;
         cylinderRotation = cylinder.transform.localEulerAngles.y;
         dayIntensity = dayLight.intensity;
@@ -47,21 +58,35 @@ public class Crank : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            timeState = ETimeState.WindingForward;
+            initialRotation = cylinderRotation;
+        } else if (Input.GetKeyUp(KeyCode.X))
+        {
+            timeState = ETimeState.ActorMovement;
+            totalRotation = Mathf.Abs(initialRotation - windupRotation);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            timeState = ETimeState.WindingReverse;
+            initialRotation = cylinderRotation;
+        }
+        else if (Input.GetKeyUp(KeyCode.Z))
+        {
+            timeState = ETimeState.ActorMovement;
+            totalRotation = Mathf.Abs(initialRotation - windupRotation);
+        }
+
+        if (timeState == ETimeState.WindingForward)
         {
             RotateClockwise();
-        } else
-        {
-            if(timeState != ETimeState.Idle) timeState = ETimeState.Idle;
         }
-        if (Input.GetKey(KeyCode.Z))
+        else if (timeState == ETimeState.WindingReverse)
         {
             RotateCounterClockwise();
         }
-        else
-        {
-            if (timeState != ETimeState.Idle) timeState = ETimeState.Idle;
-        }
+
         cylinderRotation = cylinder.transform.localEulerAngles.y;
         if (cylinderRotation < 0)
         {
@@ -92,16 +117,28 @@ public class Crank : MonoBehaviour
         currentTimeDisplay.text = $"Current Time: {GetCurrentTimeString()}";
     }
 
+    void PlayClick()
+    {
+        clickSource.PlayOneShot(clickSound);
+    }
 
     void RotateClockwise()
     {
-        if (timeState != ETimeState.Winding) timeState = ETimeState.Winding;
-        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, cylinderRotation + timeFlowRate * Time.deltaTime,cylinder.transform.localEulerAngles.z);
+        if (!clickSource.isPlaying)
+        {
+            PlayClick();
+        }
+        float rotationAmount = timeFlowRate * Time.deltaTime;
+        windupRotation += rotationAmount;
+        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, cylinderRotation + rotationAmount,cylinder.transform.localEulerAngles.z);
     }
 
     void RotateCounterClockwise()
     {
-        if (timeState != ETimeState.Winding) timeState = ETimeState.Winding;
+        if (!clickSource.isPlaying)
+        {
+            PlayClick();
+        }
         cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, cylinderRotation - timeFlowRate * Time.deltaTime, cylinder.transform.localEulerAngles.z);
     }
     float CalculateArc(float currentAngle,float brightestAngle)
