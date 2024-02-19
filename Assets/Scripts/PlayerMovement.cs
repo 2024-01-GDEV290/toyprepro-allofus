@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField]
 	private float movement_speed = 4;
 	[SerializeField]
-	private float look_sensitivity = 0.2F;
+	private float look_sensitivity = 200.00F;
 	
 	[SerializeField]
 	private GameObject player_camera;
@@ -47,20 +47,14 @@ public class PlayerMovement : MonoBehaviour
 	{
 		transform.position += transform.TransformDirection(new Vector3(0, 0, sprint_add * -1 * movement_speed * up_down * Time.deltaTime));
 		transform.position += transform.TransformDirection(new Vector3(sprint_add * movement_speed * left_right * Time.deltaTime, 0, 0));
-		
 	}
 	
 	void look(float up_down, float left_right, GameObject camera, GameObject tool)
 	{
 		//Debug.Log(UnityEditor.TransformUtils.GetInspectorRotation(camera.transform).x);
-	
-		camera.transform.Rotate(up_down * look_sensitivity, 0, 0, Space.Self);
-		tool.transform.position -= transform.TransformDirection(new Vector3(0, up_down * 0.25F * Time.deltaTime, 0));
+		//Debug.Log(up_down);
+		camera.transform.Rotate(up_down * look_sensitivity * Time.deltaTime, 0, 0, Space.Self);
 		
-		transform.Rotate(0, left_right * look_sensitivity, 0, Space.Self);
-		
-		//Included for item sway
-		//tool.transform.position -= transform.TransformDirection(new Vector3(left_right * Time.deltaTime, 0, 0));
-		
+		transform.Rotate(0, left_right * look_sensitivity * Time.deltaTime, 0, Space.Self);
 	}
 }
