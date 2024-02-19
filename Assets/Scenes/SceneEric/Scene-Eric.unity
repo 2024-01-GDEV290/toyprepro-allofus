@@ -947,7 +947,7 @@ MonoBehaviour:
   currentAngleDisplay: {fileID: 2021964567}
   currentTimeDisplay: {fileID: 613241848}
   npc: {fileID: 1834359711}
-  clickSound: {fileID: 8300000, guid: b8b2cd1299f60d746a5e0ce8c9e105e6, type: 3}
+  clickSound: {fileID: 8300000, guid: ad6518d461e3d5749b80f31bec37a57c, type: 3}
   clickSource: {fileID: 668275754}
   cylinderRotation: 0
   charStartPos: {x: 0, y: 0, z: 0}
