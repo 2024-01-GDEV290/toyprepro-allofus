@@ -6,7 +6,9 @@ using UnityEngine;
 public class WindingTime : MonoBehaviour
 {
     private int _degrees;
-    private static int maxDegrees = 360;
+    private const int MAX_DEGREE = 360;
+    private const int DEG_PER_HR = 15;
+    private const int MIN_PER_DEG = 4;
     public static WindingTime S;
 
     public int degrees
@@ -18,7 +20,7 @@ public class WindingTime : MonoBehaviour
     {
         get
         {
-            return _degrees / 15;
+            return _degrees / DEG_PER_HR;
         }
     }
 
@@ -26,7 +28,7 @@ public class WindingTime : MonoBehaviour
     {
         get
         {
-            return (_degrees % 15) * 4;
+            return (_degrees % DEG_PER_HR) * MIN_PER_DEG;
         }
     }
 
@@ -39,9 +41,9 @@ public class WindingTime : MonoBehaviour
     public void AdvanceTime(int steps)
     {
         _degrees += steps;
-        if (_degrees > maxDegrees)
+        if (_degrees > MAX_DEGREE)
         {
-            _degrees -= maxDegrees;
+            _degrees -= MAX_DEGREE;
         }
     }
 
@@ -50,7 +52,7 @@ public class WindingTime : MonoBehaviour
         _degrees -= steps;
         if (_degrees < 0)
         {
-            _degrees += maxDegrees;
+            _degrees += MAX_DEGREE;
         }
     }
 
