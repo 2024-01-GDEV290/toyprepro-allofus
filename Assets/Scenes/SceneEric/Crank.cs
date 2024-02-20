@@ -25,12 +25,11 @@ public class Crank : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentTimeDisplay;
     public float actorMoveSpeed = 10; 
 
-/*    [Header("NPC")]
-    [SerializeField] GameObject npc;*/
 
     [Header("Audio")]
     [SerializeField] AudioClip clickSound;
-    [SerializeField] AudioSource clickSource;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip tickSound;
 
 
     [Header("===Set Dynamically===")]
@@ -40,21 +39,13 @@ public class Crank : MonoBehaviour
     [SerializeField] Vector3 charEndPos;
     [SerializeField] ETimeState timeState;
 
-    [SerializeField] float initialRotation;
-    [SerializeField] float windupRotation;
-    [SerializeField] float totalRotation;
-
     private void Awake()
     {
-        windupRotation = 0;
-        initialRotation = 0;
         timeState = ETimeState.Idle;
         timeAsRotation = cylinder.transform.localEulerAngles.y;
         dayIntensity = dayLight.intensity;
         nightIntensity = nightLight.intensity;
-/*        charStartPos = npc.transform.position + new Vector3(2,0,2);
-        charEndPos = npc.transform.position + new Vector3(-2,0,-2);
-        npc.transform.position = charStartPos; */
+        audioSource = GetComponent<AudioSource>();  
     }
     private void Start()
     {
@@ -62,28 +53,26 @@ public class Crank : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            timeState = ETimeState.WindingForward;
-            initialRotation = timeAsRotation;
-        } else if (Input.GetKeyUp(KeyCode.X))
-        {
-            timeState = ETimeState.ActorMovement;
-            totalRotation = Mathf.Abs(initialRotation - windupRotation);
-            MoveActors();
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            timeState = ETimeState.WindingReverse;
-            initialRotation = timeAsRotation;
-        }
-        else if (Input.GetKeyUp(KeyCode.Z))
-        {
-            timeState = ETimeState.ActorMovement;
-            totalRotation = Mathf.Abs(initialRotation - windupRotation);
-            MoveActors();
-        }
-
+        // Handle crank input and state changes
+      
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                timeState = ETimeState.WindingForward;
+            }
+            else if (Input.GetKeyUp(KeyCode.X))
+            {
+                StartTicking();
+            }
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+                timeState = ETimeState.WindingReverse;
+            }
+            else if (Input.GetKeyUp(KeyCode.Z))
+            {
+                StartTicking();
+            }
+       
+        
         if (timeState == ETimeState.WindingForward)
         {
             RotateClockwise();
@@ -96,6 +85,7 @@ public class Crank : MonoBehaviour
 
         }
 
+        // Set the rotation to a positive rotational value
         timeAsRotation = cylinder.transform.localEulerAngles.y;
         if (timeAsRotation < 0)
         {
@@ -106,12 +96,26 @@ public class Crank : MonoBehaviour
         // 360/24 = 15 degrees per hour
         // 1 min = 15 degrees/60 minutes = .25 degrees
 
-
+        // Update UI and environment visuals
         ChangeTime();
-/*        npc.transform.position = Vector3.Lerp(charStartPos, charEndPos, CalculateArc(timeAsRotation, 180)/180);*/
         UpdateUI();
     }
 
+    public void StartTicking()
+    {
+        timeState = ETimeState.ActorMovement;
+        audioSource.clip = tickSound;
+        audioSource.Play();
+        MoveActors();
+        Invoke("StopTicking", 2);
+    }
+
+    public void StopTicking()
+    {
+        audioSource.Stop();
+        audioSource.clip = null;
+        timeState = ETimeState.Idle;
+    }
     void MoveActors()
     {
         foreach (Actor actor in FindObjectsOfType<Actor>())
@@ -140,23 +144,22 @@ public class Crank : MonoBehaviour
 
     void PlayClick()
     {
-        clickSource.PlayOneShot(clickSound);
+        audioSource.PlayOneShot(clickSound);
     }
 
     void RotateClockwise()
     {
-        if (!clickSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
             PlayClick();
         }
         float rotationAmount = timeFlowRate * Time.deltaTime;
-        windupRotation += rotationAmount;
         cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, timeAsRotation + rotationAmount,cylinder.transform.localEulerAngles.z);
     }
 
     void RotateCounterClockwise()
     {
-        if (!clickSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
             PlayClick();
         }
