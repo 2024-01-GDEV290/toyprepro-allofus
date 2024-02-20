@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 536188f2086ee2242828a99d35647a62
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - wood: {instanceID: 0}
+  - carpet: {instanceID: 0}
+  - leather: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536188f2086ee2242828a99d35647a62, type: 3}
+  m_Name: StateObject
+  m_EditorClassIdentifier: 
+  Charge: 0
+  chargeValue: 0
+  allPowered: 0
+  wood: {fileID: 2100000, guid: d2d73db677834be46815e1849a9c9fde, type: 2}
+  carpet: {fileID: 2100000, guid: a7e362af04e2c844685d7efa76a9e016, type: 2}
+  leather: {fileID: 2100000, guid: 4cb8105ac5a6e744893548e49457ace4, type: 2}
