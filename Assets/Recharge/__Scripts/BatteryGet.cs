@@ -26,8 +26,7 @@ public class BatteryGet : MonoBehaviour
     private void UpdatePowerText()
     {
         // Update the UI text with the remaining power value
-        powerText.text = powerText.text;
-        powerText.text = powerText.text + powerRemaining;
+        powerText.text = powerRemaining.ToString ("0");
     }
 
     private void Start()
