@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class BatteryGet : MonoBehaviour
 {
-    public Text powerText;
+    public TMP_Text powerText;
     private int powerRemaining = 100;
 
     // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
