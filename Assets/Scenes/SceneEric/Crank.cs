@@ -23,8 +23,10 @@ public class Crank : MonoBehaviour
     [SerializeField] float timeFlowRate = 10;
     [SerializeField] TextMeshProUGUI currentAngleDisplay;
     [SerializeField] TextMeshProUGUI currentTimeDisplay;
-    public float actorMoveSpeed = 10; 
+    public float actorMoveSpeed = 10;
+    [SerializeField] Gradient skyGradient; 
 
+    
 
     [Header("Audio")]
     [SerializeField] AudioClip clickSound;
@@ -80,9 +82,6 @@ public class Crank : MonoBehaviour
         else if (timeState == ETimeState.WindingReverse)
         {
             RotateCounterClockwise();
-        } else if (timeState == ETimeState.ActorMovement)
-        {
-
         }
 
         // Set the rotation to a positive rotational value
@@ -126,9 +125,8 @@ public class Crank : MonoBehaviour
 
     void ChangeTime()
     {
-        dayLight.intensity = CalculateArc(timeAsRotation, 180) / 180 * dayIntensity;
-        nightLight.intensity = CalculateArc(timeAsRotation, 0) / 180 * nightIntensity;
-    }
+        Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
+;    }
     string GetCurrentTimeString()
     {
         float currentHour = Mathf.Floor(timeAsRotation / 15);
