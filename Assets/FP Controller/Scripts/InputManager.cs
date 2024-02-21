@@ -18,7 +18,6 @@ public class InputManager : MonoBehaviour
         onFoot = playerInput.OnFoot;
         motor = GetComponent<PlayerMotor>();
         onFoot.Jump.performed += ctx => motor.Jump();
-        onFoot.Attack.performed += ctx => motor.Attack();
         onFoot.ResetScene.performed += ctx => motor.ResetScene();
 
         Cursor.lockState = CursorLockMode.Locked;
