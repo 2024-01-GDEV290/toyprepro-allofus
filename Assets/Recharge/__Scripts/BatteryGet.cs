@@ -23,7 +23,7 @@ public class BatteryGet : MonoBehaviour
         // Update the UI text with the remaining power value
         if (powerText != null)
         {
-            powerText.text = "Power Remaining: " + powerRemaining;
+            powerText.text = powerText.text + powerRemaining;
         }
     }
 
@@ -31,5 +31,16 @@ public class BatteryGet : MonoBehaviour
     {
         // Set up the initial UI text
         UpdatePowerText();
+
+        DrainPower();
+    }
+
+    private void DrainPower()
+    {
+        for (int i = 100; i >= powerRemaining && i != 0;)
+        {
+            i--;
+            powerRemaining = i;
+        }
     }
 }
