@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,8 @@ public class Crank : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentAngleDisplay;
     [SerializeField] TextMeshProUGUI currentTimeDisplay;
     public float actorMoveSpeed = 10;
-    [SerializeField] Gradient skyGradient; 
+    [SerializeField] Gradient skyGradient;
+    [SerializeField] Transform celestialBodiesTransform;
 
     
 
@@ -125,6 +127,7 @@ public class Crank : MonoBehaviour
 
     void ChangeTime()
     {
+        celestialBodiesTransform.eulerAngles = new Vector3(-timeAsRotation,0,0);
         Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
 ;    }
     string GetCurrentTimeString()
