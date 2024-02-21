@@ -6,8 +6,9 @@ using TMPro;
 public class BatteryGet : MonoBehaviour
 {
     public TMP_Text powerText;
-    public int powerRemaining = 30;
+    private int powerRemaining = 30;
     private float timer = 0.5f;
+    public SimplePlayerController playerController;
 
     // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
     private void OnTriggerEnter(Collider other)
@@ -40,9 +41,16 @@ public class BatteryGet : MonoBehaviour
     private void DrainPower()
     {
         if (powerRemaining > 0)
+        {
             powerRemaining--;
+        }
 
         UpdatePowerText();
+
+        if (powerRemaining <= 0)
+        {
+            playerController.SetPlayerInputEnabled(false);
+        }
     }
 
     private void Update()

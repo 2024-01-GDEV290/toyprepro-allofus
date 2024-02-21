@@ -5,24 +5,28 @@ using UnityEngine;
 public class SimplePlayerController : MonoBehaviour
 {
     public float movementSpeed = 5f;
-    public float mouseSensitivity = 2f;
+    public float mouseSensitivity = 5f; // Increased mouse sensitivity
     public float jumpForce = 10f;
 
     private float verticalRotation = 0f;
     private bool isGrounded;
+    private bool isPlayerInputEnabled = true;
 
     private void Update()
     {
-        // Handle player movement
-        MovePlayer();
-
-        // Handle player rotation (looking around)
-        RotatePlayer();
-
-        // Handle player jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (isPlayerInputEnabled)
         {
-            Jump();
+            // Handle player movement
+            MovePlayer();
+
+            // Handle player rotation (looking around)
+            RotatePlayer();
+
+            // Handle player jumping
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                Jump();
+            }
         }
     }
 
@@ -41,7 +45,7 @@ public class SimplePlayerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
 
         verticalRotation -= mouseY * mouseSensitivity;
-        verticalRotation = Mathf.Clamp(verticalRotation, -180f, 180f);
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
 
         transform.Rotate(Vector3.up * mouseX * mouseSensitivity);
         Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
@@ -51,6 +55,11 @@ public class SimplePlayerController : MonoBehaviour
     {
         GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         isGrounded = false;
+    }
+
+    public void SetPlayerInputEnabled(bool isEnabled)
+    {
+        isPlayerInputEnabled = isEnabled;
     }
 
     private void OnCollisionEnter(Collision collision)
