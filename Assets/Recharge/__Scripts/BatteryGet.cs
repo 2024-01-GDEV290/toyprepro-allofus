@@ -14,7 +14,7 @@ public class BatteryGet : MonoBehaviour
     {
         // Delete the colliding object
         Destroy(other.gameObject);
-        powerRemaining += 5;
+        powerRemaining += 10;
         if (powerRemaining > 30)
         {
             powerRemaining = 30;

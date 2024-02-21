@@ -41,7 +41,7 @@ public class SimplePlayerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
 
         verticalRotation -= mouseY * mouseSensitivity;
-        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+        verticalRotation = Mathf.Clamp(verticalRotation, -180f, 180f);
 
         transform.Rotate(Vector3.up * mouseX * mouseSensitivity);
         Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
