@@ -2,28 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class ThirdPersonMovement : MonoBehaviour
 {
-    public CharacterController controller;
-    public Transform cam;
-    public float speed = 6f;
-    public float turnSmoothTime = 0.1f;
-    public float turnSmoothVelocity;
+    public float moveSpeed;
+    public float shiftAdditionalSpeed;
+    public float mouseSensitivity;public bool invertMouse;
+    public bool autoLockCursor;
+    private Camera cam;
 
-    private void Update()
+    void Awake()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        float ascend = Input.GetAxisRaw("Ascend");
-        Vector3 direction = new Vector3(horizontal, ascend, vertical).normalized;
+        cam = this.gameObject.GetComponent<Camera>();
+        this.gameObject.name = "SpectatorCamera";
+        Cursor.lockState = (autoLockCursor)?CursorLockMode.Locked:CursorLockMode.None;
+    }
 
-        if (direction.magnitude >= 0.1f)
+    void Update()
+    {
+        float speed = (moveSpeed + (Input.GetAxis("Fire3") * shiftAdditionalSpeed));
+        this.gameObject.transform.Translate(Vector3.forward * speed * Input.GetAxis("Vertical"));
+        this.gameObject.transform.Translate(Vector3.right * speed * Input.GetAxis("Horizontal"));
+        this.gameObject.transform.Translate(Vector3.up * speed * (Input.GetAxis("Jump") + (Input.GetAxis("Fire1") * -1)));
+        this.gameObject.transform.Rotate(Input.GetAxis("Mouse Y") * mouseSensitivity * ((invertMouse) ? 1 : -1), Input.GetAxis("Mouse x") * ((invertMouse) ? -1 : 1), 0);
+        this.gameObject.transform.localEulerAngles = new Vector3(this.gameObject.transform.localEulerAngles.x, this.gameObject.transform.localEulerAngles.y, 0);
+        if (Cursor.lockState == CursorLockMode.None && Input.GetMouseButtonDown(0))
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if (Cursor.lockState == CursorLockMode.Locked && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
