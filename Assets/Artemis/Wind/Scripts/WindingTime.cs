@@ -40,6 +40,7 @@ public class WindingTime : MonoBehaviour
         if (S == null) { S = this; }
         skyChange = false;
         RenderSettings.ambientIntensity = 0;
+        moveTime.Raise();
     }
 
     private void Update()
