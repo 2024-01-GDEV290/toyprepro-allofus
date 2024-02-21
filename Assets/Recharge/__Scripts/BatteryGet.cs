@@ -39,7 +39,9 @@ public class BatteryGet : MonoBehaviour
 
     private void DrainPower()
     {
-        powerRemaining--;
+        if (powerRemaining > 0)
+            powerRemaining--;
+
         UpdatePowerText();
     }
 
