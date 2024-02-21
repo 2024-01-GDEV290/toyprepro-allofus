@@ -6,7 +6,7 @@ using TMPro;
 public class BatteryGet : MonoBehaviour
 {
     public TMP_Text powerText;
-    public int powerRemaining = 100;
+    public int powerRemaining = 30;
     private float timer = 0.5f;
 
     // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
@@ -14,10 +14,10 @@ public class BatteryGet : MonoBehaviour
     {
         // Delete the colliding object
         Destroy(other.gameObject);
-        powerRemaining += 25;
-        if (powerRemaining > 100)
+        powerRemaining += 5;
+        if (powerRemaining > 30)
         {
-            powerRemaining = 100;
+            powerRemaining = 30;
         }
         // Update the UI text
         UpdatePowerText();
