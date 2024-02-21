@@ -15,40 +15,27 @@ public class playerRaycast : MonoBehaviour
     private float holdCounter = 0f; // Counter for how long 'E' has been held
     private float delayCounter = 0f;
     private float delayTotal = 3f;
+    public List<AudioClip> recordedSounds = new List<AudioClip>();
+    public AudioSource audioSource;
 
+    public AudioClip finishedRecordingSound;
 
+    void Start()
+    {
+        // Get the AudioSource component attached to this GameObject
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         DetectObjects();
 
-        if (isLookingAtInteractable && Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.P) && !audioSource.isPlaying)
         {
-            // Increment the counter based on time
-            holdCounter += Time.deltaTime;
-            progressBarFill.fillAmount = holdCounter / holdTime; // Update progress bar fill
-            progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
-            promptText.gameObject.SetActive(false);
-            successText.gameObject.SetActive(false);
-
-            if (holdCounter >= holdTime)
-            {
-                Debug.Log("Action completed!");
-                // Reset for next use
-                //ResetProgressBar();
-                progressBarFill.transform.parent.gameObject.SetActive(false);
-                successText.gameObject.SetActive(true);
-                delayCounter += Time.deltaTime;
-
-            }
-
+            PlayLastRecordedSound();
         }
-        else if (progressBarFill.transform.parent.gameObject.activeSelf)
-        {
-            // If 'E' is released before completion, reset everything
-            ResetProgressBar();
-        }
+
     }
 
     void ResetProgressBar()
@@ -56,6 +43,20 @@ public class playerRaycast : MonoBehaviour
         holdCounter = 0f;
         progressBarFill.fillAmount = 0;
         progressBarFill.transform.parent.gameObject.SetActive(false);
+    }
+
+    void PlayLastRecordedSound()
+    {
+        if (recordedSounds.Count > 0)
+        {
+            AudioClip lastRecordedClip = recordedSounds[recordedSounds.Count - 1];
+            audioSource.PlayOneShot(lastRecordedClip);
+            Debug.Log("Playing back last recorded sound: " + lastRecordedClip.name);
+        }
+        else
+        {
+            Debug.Log("No sounds have been recorded.");
+        }
     }
 
     void DetectObjects()
@@ -82,5 +83,59 @@ public class playerRaycast : MonoBehaviour
             promptText.gameObject.SetActive(false); // Hide the prompt if raycast hits nothing
             isLookingAtInteractable = false;
         }
+
+        //Hold down E to record a sound
+        if (isLookingAtInteractable && Input.GetKey(KeyCode.E))
+        {
+            // Increment the counter based on time
+            holdCounter += Time.deltaTime;
+            progressBarFill.fillAmount = holdCounter / holdTime; // Update progress bar fill
+            progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
+            promptText.gameObject.SetActive(false);
+            successText.gameObject.SetActive(false);
+
+            //if the counter reaches 5 seconds record the sound
+            if (holdCounter >= holdTime)
+            {
+                Debug.Log("Action completed!");
+
+                // Reset for next use
+                //ResetProgressBar();
+                progressBarFill.transform.parent.gameObject.SetActive(false);
+                successText.gameObject.SetActive(true);
+                delayCounter += Time.deltaTime;
+
+                // Check if the object we're looking at is the sound-emitting object
+                AudioSource audioSource = hit.collider.GetComponent<AudioSource>();
+                if (audioSource != null && !recordedSounds.Contains(audioSource.clip))
+
+                {
+                    // "Record" the sound by accessing the audio clip
+                    AudioClip recordedClip = audioSource.clip;
+                    recordedSounds.Add(recordedClip);
+                    Debug.Log("Recording sound from: " + hit.collider.name + " | Clip: " + recordedClip.name);
+
+                    PlayFinishedRecordingSound();
+
+                }
+            }
+
+
+        }
+        else if (progressBarFill.transform.parent.gameObject.activeSelf)
+        {
+            // If 'E' is released before completion, reset everything
+            ResetProgressBar();
+        }
+
+        void PlayFinishedRecordingSound()
+        {
+            if (finishedRecordingSound != null)
+            {
+                audioSource.PlayOneShot(finishedRecordingSound);
+
+            }
+        }
     }
 }
+
