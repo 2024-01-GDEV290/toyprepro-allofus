@@ -6,6 +6,7 @@ public class Soak : MonoBehaviour
 {
 
     public Animator animator;
+    public ParticleSystem splash;
 
     // Update is called once per frame
     void Update()
@@ -15,6 +16,8 @@ public class Soak : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {   
+
         animator.SetBool("Soaked", true);
+        splash.Play();
     }
 }
