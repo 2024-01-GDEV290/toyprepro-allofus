@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Actor : MonoBehaviour
 {
@@ -29,6 +30,19 @@ public class Actor : MonoBehaviour
         }
     }
 
+/*    void OrientSprite()
+    {
+        Vector3 diff = Camera.main.transform.position - transform.position;
+        if (Vector3.Angle(diff, transform.position) > 90)
+        {
+            // Orienting the decal to the correct direction so the particle system is facing towards the side the player is on. 
+            decal.transform.localEulerAngles = new Vector3(-90, 0, 0);
+        }
+        else
+        {
+            decal.transform.localEulerAngles = new Vector3(90, 0, 0);
+        }
+    }*/
     GameObject GetWayPoint(string wayPointName)
     {
         return GameObject.Find(wayPointName);
