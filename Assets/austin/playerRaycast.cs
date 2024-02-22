@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class playerRaycast : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class playerRaycast : MonoBehaviour
     //private float delayTotal = 3f;
     public List<AudioClip> recordedSounds = new List<AudioClip>();
     public AudioSource audioSource;
+    //public UnityEvent resetProgressBar;
+    public string isRecorded;
+     
 
     public AudioClip finishedRecordingSound;
 
@@ -44,7 +48,8 @@ public class playerRaycast : MonoBehaviour
     {
         holdCounter = 0f;
         progressBarFill.fillAmount = 0;
-        
+        progressBarFill.transform.parent.gameObject.SetActive(false);
+
     }
 
     void PlayLastRecordedSound()
@@ -68,7 +73,7 @@ public class playerRaycast : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, range))
         {
-            if (hit.transform.CompareTag("Interactable")) // Make sure your object has this tag
+            if (hit.transform.CompareTag("Interactable") && !hit.collider.name.Equals (isRecorded)) // Make sure your object has this tag
             {
                 promptText.gameObject.SetActive(true); // Show the prompt
                 isLookingAtInteractable = true;
@@ -88,7 +93,7 @@ public class playerRaycast : MonoBehaviour
         }
 
         //Hold down E to record a sound
-        if (isLookingAtInteractable && Input.GetKey(KeyCode.E) && !recordedSounds.Contains(audioSource.clip))
+        if (isLookingAtInteractable && Input.GetKey(KeyCode.E))
         {
             // Increment the counter based on time
             progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
@@ -104,11 +109,13 @@ public class playerRaycast : MonoBehaviour
                 Debug.Log("Action completed!");
 
                 // Reset for next use
-                progressBarFill.transform.parent.gameObject.SetActive(false);
+                
                 successText.gameObject.SetActive(true);
                 playbackText.gameObject.SetActive(true);
+                isRecorded = hit.collider.name; 
+                ResetProgressBar();
                 //delayCounter += Time.deltaTime;
-                
+
 
                 // Check if the object we're looking at is the sound-emitting object
                 AudioSource audioSource = hit.collider.GetComponent<AudioSource>();
@@ -121,6 +128,7 @@ public class playerRaycast : MonoBehaviour
                     Debug.Log("Sound recorded from: " + hit.collider.name + " | Clip: " + recordedClip.name);
                     
                     PlayFinishedRecordingSound();
+                  
 
                 }
             }

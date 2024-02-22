@@ -1315,6 +1315,7 @@ MonoBehaviour:
   progressBarFill: {fileID: 1790533510}
   recordedSounds: []
   audioSource: {fileID: 0}
+  isRecorded: 
   finishedRecordingSound: {fileID: 8300000, guid: 01625f5608cae054699e1285e1700d23,
     type: 3}
 --- !u!82 &1306135235
