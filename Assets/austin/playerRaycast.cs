@@ -9,6 +9,7 @@ public class playerRaycast : MonoBehaviour
     public float range = 100f; // Max distance the raycast will check for objects
     public TextMeshProUGUI promptText;
     public TextMeshProUGUI successText;
+    public TextMeshProUGUI playbackText;
     public Image progressBarFill; // Assign this in the inspector
     private bool isLookingAtInteractable = false;
     private float holdTime = 5f; // Time in seconds to hold 'E'
@@ -76,6 +77,7 @@ public class playerRaycast : MonoBehaviour
                 promptText.gameObject.SetActive(false); // Hide the prompt if not looking at interactable object
                 isLookingAtInteractable = false;
                 successText.gameObject.SetActive(false);
+                playbackText.gameObject.SetActive(false);
             }
         }
         else
@@ -93,6 +95,7 @@ public class playerRaycast : MonoBehaviour
             progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
             promptText.gameObject.SetActive(false);
             successText.gameObject.SetActive(false);
+            playbackText.gameObject.SetActive(false);
 
             //if the counter reaches 5 seconds record the sound
             if (holdCounter >= holdTime)
@@ -103,6 +106,7 @@ public class playerRaycast : MonoBehaviour
                 //ResetProgressBar();
                 progressBarFill.transform.parent.gameObject.SetActive(false);
                 successText.gameObject.SetActive(true);
+                playbackText.gameObject.SetActive(true);
                 delayCounter += Time.deltaTime;
 
                 // Check if the object we're looking at is the sound-emitting object
