@@ -16,6 +16,6 @@ public class CameraZoom : MonoBehaviour
     public void Zoom(GameObject go)
     {
         this.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, -10f);
-        GetComponent <Camera>().orthographicSize = zoomSize;
+        GetComponent<Camera>().orthographicSize = zoomSize;
     }
 }
