@@ -10099,6 +10099,7 @@ GameObject:
   - component: {fileID: 1207187217}
   - component: {fileID: 1207187220}
   - component: {fileID: 1207187219}
+  - component: {fileID: 1207187221}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Rain
@@ -10214,6 +10215,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1207187219}
+--- !u!114 &1207187221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207187216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc95f7bdfb8e43f5b69d352d04f1c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1332222740
 GameObject:
   m_ObjectHideFlags: 0
