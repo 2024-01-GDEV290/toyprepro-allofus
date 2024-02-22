@@ -59,7 +59,7 @@ public class Crank : MonoBehaviour
     {
         // Handle crank input and state changes
       
-            if (Input.GetKeyDown(KeyCode.X))
+            if (timeState == ETimeState.Idle && Input.GetKeyDown(KeyCode.X))
             {
                 timeState = ETimeState.WindingForward;
             }
@@ -67,7 +67,7 @@ public class Crank : MonoBehaviour
             {
                 StartTicking();
             }
-            else if (Input.GetKeyDown(KeyCode.Z))
+            else if (timeState == ETimeState.Idle && Input.GetKeyDown(KeyCode.Z))
             {
                 timeState = ETimeState.WindingReverse;
             }
