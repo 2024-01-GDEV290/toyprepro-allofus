@@ -37,13 +37,14 @@ public class playerRaycast : MonoBehaviour
             PlayLastRecordedSound();
         }
 
+        
     }
 
     void ResetProgressBar()
     {
         holdCounter = 0f;
         progressBarFill.fillAmount = 0;
-        progressBarFill.transform.parent.gameObject.SetActive(false);
+        
     }
 
     void PlayLastRecordedSound()
@@ -87,12 +88,12 @@ public class playerRaycast : MonoBehaviour
         }
 
         //Hold down E to record a sound
-        if (isLookingAtInteractable && Input.GetKey(KeyCode.E))
+        if (isLookingAtInteractable && Input.GetKey(KeyCode.E) && !recordedSounds.Contains(audioSource.clip))
         {
             // Increment the counter based on time
+            progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
             holdCounter += Time.deltaTime;
             progressBarFill.fillAmount = holdCounter / holdTime; // Update progress bar fill
-            progressBarFill.transform.parent.gameObject.SetActive(true); // Make sure the progress bar is visible
             promptText.gameObject.SetActive(false);
             successText.gameObject.SetActive(false);
             playbackText.gameObject.SetActive(false);
@@ -103,11 +104,11 @@ public class playerRaycast : MonoBehaviour
                 Debug.Log("Action completed!");
 
                 // Reset for next use
-                //ResetProgressBar();
                 progressBarFill.transform.parent.gameObject.SetActive(false);
                 successText.gameObject.SetActive(true);
                 playbackText.gameObject.SetActive(true);
-                delayCounter += Time.deltaTime;
+                //delayCounter += Time.deltaTime;
+                
 
                 // Check if the object we're looking at is the sound-emitting object
                 AudioSource audioSource = hit.collider.GetComponent<AudioSource>();
@@ -117,8 +118,8 @@ public class playerRaycast : MonoBehaviour
                     // "Record" the sound by accessing the audio clip
                     AudioClip recordedClip = audioSource.clip;
                     recordedSounds.Add(recordedClip);
-                    Debug.Log("Recording sound from: " + hit.collider.name + " | Clip: " + recordedClip.name);
-
+                    Debug.Log("Sound recorded from: " + hit.collider.name + " | Clip: " + recordedClip.name);
+                    
                     PlayFinishedRecordingSound();
 
                 }
@@ -137,7 +138,7 @@ public class playerRaycast : MonoBehaviour
             if (finishedRecordingSound != null)
             {
                 audioSource.PlayOneShot(finishedRecordingSound);
-
+                
             }
         }
     }
