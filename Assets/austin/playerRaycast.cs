@@ -15,7 +15,7 @@ public class playerRaycast : MonoBehaviour
     private float holdTime = 5f; // Time in seconds to hold 'E'
     private float holdCounter = 0f; // Counter for how long 'E' has been held
     private float delayCounter = 0f;
-    private float delayTotal = 3f;
+    //private float delayTotal = 3f;
     public List<AudioClip> recordedSounds = new List<AudioClip>();
     public AudioSource audioSource;
 
