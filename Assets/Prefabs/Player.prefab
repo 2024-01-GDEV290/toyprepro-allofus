@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sweep: {fileID: 8210988318687459864}
   rotationSpeed: 50
+  sonarSound: {fileID: 8300000, guid: 23f805f2c6e7c0548aab0d139d1b527c, type: 3}
 --- !u!1 &1130678766234269492
 GameObject:
   m_ObjectHideFlags: 0
