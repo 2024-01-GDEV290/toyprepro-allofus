@@ -99,15 +99,14 @@ public class playerInputRagdoll : MonoBehaviour
 		
 		if (intensity != 0)
 		{
-			shoulder_degrees = (-intensity * 120);
-			elbow_degrees = (-intensity * 120);
+			shoulder_degrees = (-intensity * 60);
+			elbow_degrees = (-intensity * 60);
 		} else
 		{
 			
 		}
 		
 		shoulder.transform.localRotation = Quaternion.Euler(0, 0, shoulder_degrees);
-		//Debug.Log("LEFT SHOULDER ROTATION: " + shoulder.transform.localRotation);
 		elbow.transform.localRotation = Quaternion.Euler(0, 0, elbow_degrees);
 	}
 	
@@ -118,15 +117,14 @@ public class playerInputRagdoll : MonoBehaviour
 		
 		if (intensity != 0)
 		{
-			shoulder_degrees = (intensity * 120);
-			elbow_degrees = (intensity * 120);
+			shoulder_degrees = (intensity * 60);
+			elbow_degrees = (intensity * 60);
 		} else
 		{
 			
 		}
 		
 		shoulder.transform.localRotation = Quaternion.Euler(0, 0, shoulder_degrees);
-       // Debug.Log("LEFT SHOULDER ROTATION: " + shoulder.transform.localRotation);
         elbow.transform.localRotation = Quaternion.Euler(0, 0, elbow_degrees);
 	}
 
