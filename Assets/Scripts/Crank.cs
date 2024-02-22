@@ -17,10 +17,6 @@ public class Crank : MonoBehaviour
 {
     [Header("===Set in Inspector===")]
     [SerializeField] GameObject cylinder;
-    [SerializeField] Light dayLight;
-    private float dayIntensity;
-    [SerializeField] Light nightLight;
-    private float nightIntensity;
     [SerializeField] float timeFlowRate = 10;
     [SerializeField] TextMeshProUGUI currentAngleDisplay;
     [SerializeField] TextMeshProUGUI currentTimeDisplay;
@@ -47,8 +43,6 @@ public class Crank : MonoBehaviour
     {
         timeState = ETimeState.Idle;
         timeAsRotation = cylinder.transform.localEulerAngles.y;
-        dayIntensity = dayLight.intensity;
-        nightIntensity = nightLight.intensity;
         audioSource = GetComponent<AudioSource>();  
     }
     private void Start()
@@ -130,6 +124,7 @@ public class Crank : MonoBehaviour
         celestialBodiesTransform.eulerAngles = new Vector3(-timeAsRotation,0,0);
         Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
 ;    }
+
     string GetCurrentTimeString()
     {
         float currentHour = Mathf.Floor(timeAsRotation / 15);
@@ -166,9 +161,9 @@ public class Crank : MonoBehaviour
         }
         cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, timeAsRotation - timeFlowRate * Time.deltaTime, cylinder.transform.localEulerAngles.z);
     }
-    float CalculateArc(float currentAngle,float brightestAngle)
+    float CalculateArc(float currentAngle,float targetAngle)
     {
-        float delta = Mathf.Abs(brightestAngle - currentAngle);
+        float delta = Mathf.Abs(targetAngle - currentAngle);
         float arc = delta > 180? 360 - delta:delta;
         return arc;
     }
