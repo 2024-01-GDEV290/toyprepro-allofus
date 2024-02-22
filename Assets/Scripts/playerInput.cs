@@ -30,11 +30,14 @@ public class playerInput : MonoBehaviour
 	
 	public GameObject leftShoulder;
 	public GameObject leftElbow;
+
+	public float thrust = 1f;
+	public Rigidbody rb;
 	
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -96,6 +99,7 @@ public class playerInput : MonoBehaviour
 		{
 			shoulder_degrees = (intensity * 120) + 30;
 			elbow_degrees = (intensity * 120) - 60;
+			rb.AddForce(transform.forward * thrust);
 		} else
 		{
 			shoulder_degrees = 30;
@@ -115,6 +119,7 @@ public class playerInput : MonoBehaviour
 		{
 			shoulder_degrees = (intensity * 120) + 30;
 			elbow_degrees = (intensity * 120) - 60;
+			rb.AddForce(transform.forward * thrust);
 		} else
 		{
 			shoulder_degrees = 30;
