@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float speed = 6f;
     public ParticleSystem rain;
+    public AudioSource audio;
 
 
     [SerializeField] private Rigidbody rb;
@@ -21,11 +22,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rain.Play();
+            audio.Play();
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             rain.Stop();
+            audio.Stop();
         }
     }
 
