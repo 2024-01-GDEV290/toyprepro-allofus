@@ -71,6 +71,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Advance Time"",
+                    ""type"": ""Button"",
+                    ""id"": ""393eb642-5147-4c74-974b-9479ef8c1a6e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reverse Time"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5543238-c4a1-425a-b516-3b8374f1da43"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -271,6 +289,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Reset Scene"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9e06428-14f4-473b-ae64-9dee1d5b4499"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Advance Time"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35b7a2be-4239-486d-b983-c59b9b501c8b"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reverse Time"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -284,6 +324,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
         m_OnFoot_Attack = m_OnFoot.FindAction("Attack", throwIfNotFound: true);
         m_OnFoot_ResetScene = m_OnFoot.FindAction("Reset Scene", throwIfNotFound: true);
+        m_OnFoot_AdvanceTime = m_OnFoot.FindAction("Advance Time", throwIfNotFound: true);
+        m_OnFoot_ReverseTime = m_OnFoot.FindAction("Reverse Time", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -350,6 +392,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Look;
     private readonly InputAction m_OnFoot_Attack;
     private readonly InputAction m_OnFoot_ResetScene;
+    private readonly InputAction m_OnFoot_AdvanceTime;
+    private readonly InputAction m_OnFoot_ReverseTime;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -359,6 +403,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_OnFoot_Look;
         public InputAction @Attack => m_Wrapper.m_OnFoot_Attack;
         public InputAction @ResetScene => m_Wrapper.m_OnFoot_ResetScene;
+        public InputAction @AdvanceTime => m_Wrapper.m_OnFoot_AdvanceTime;
+        public InputAction @ReverseTime => m_Wrapper.m_OnFoot_ReverseTime;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -383,6 +429,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ResetScene.started += instance.OnResetScene;
             @ResetScene.performed += instance.OnResetScene;
             @ResetScene.canceled += instance.OnResetScene;
+            @AdvanceTime.started += instance.OnAdvanceTime;
+            @AdvanceTime.performed += instance.OnAdvanceTime;
+            @AdvanceTime.canceled += instance.OnAdvanceTime;
+            @ReverseTime.started += instance.OnReverseTime;
+            @ReverseTime.performed += instance.OnReverseTime;
+            @ReverseTime.canceled += instance.OnReverseTime;
         }
 
         private void UnregisterCallbacks(IOnFootActions instance)
@@ -402,6 +454,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ResetScene.started -= instance.OnResetScene;
             @ResetScene.performed -= instance.OnResetScene;
             @ResetScene.canceled -= instance.OnResetScene;
+            @AdvanceTime.started -= instance.OnAdvanceTime;
+            @AdvanceTime.performed -= instance.OnAdvanceTime;
+            @AdvanceTime.canceled -= instance.OnAdvanceTime;
+            @ReverseTime.started -= instance.OnReverseTime;
+            @ReverseTime.performed -= instance.OnReverseTime;
+            @ReverseTime.canceled -= instance.OnReverseTime;
         }
 
         public void RemoveCallbacks(IOnFootActions instance)
@@ -426,5 +484,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnResetScene(InputAction.CallbackContext context);
+        void OnAdvanceTime(InputAction.CallbackContext context);
+        void OnReverseTime(InputAction.CallbackContext context);
     }
 }

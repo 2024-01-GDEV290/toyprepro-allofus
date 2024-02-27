@@ -3,6 +3,7 @@ using System.Collections.Generic;
 // using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerMotor : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class PlayerMotor : MonoBehaviour
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
 
+    [Header("Advance/Reverse time")]
+    [SerializeField] Crank crank; 
 
     // Start is called before the first frame update
     void Awake()
@@ -70,6 +73,30 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
+    // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
+    public void AdvanceTime(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && crank.timeState == ETimeState.Idle)
+        {
+            crank.timeState = ETimeState.WindingForward;
+        } else if (ctx.canceled && crank.timeState == ETimeState.WindingForward)
+        {
+            crank.StartTicking();
+        }
+
+    }
+
+    public void ReverseTime(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && crank.timeState == ETimeState.Idle)
+        {
+            crank.timeState = ETimeState.WindingReverse;
+        }
+        else if (ctx.canceled && crank.timeState == ETimeState.WindingReverse)
+        {
+            crank.StartTicking();
+        }
+    }
 
     public void ResetScene()
     {

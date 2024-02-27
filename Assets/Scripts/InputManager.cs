@@ -16,9 +16,17 @@ public class InputManager : MonoBehaviour
     {
         playerInput = new PlayerInput();
         onFoot = playerInput.OnFoot;
+        
+        // Player Movement
         motor = GetComponent<PlayerMotor>();
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.ResetScene.performed += ctx => motor.ResetScene();
+
+        // Advance and reverse time
+        onFoot.AdvanceTime.performed += ctx => motor.AdvanceTime(ctx);
+        onFoot.AdvanceTime.canceled += ctx => motor.AdvanceTime(ctx);
+        onFoot.ReverseTime.performed += ctx => motor.ReverseTime(ctx);
+        onFoot.ReverseTime.canceled += ctx => motor.ReverseTime(ctx);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

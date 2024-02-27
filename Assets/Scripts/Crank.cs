@@ -37,7 +37,7 @@ public class Crank : MonoBehaviour
     [Header("NPC")]
     [SerializeField] Vector3 charStartPos;
     [SerializeField] Vector3 charEndPos;
-    [SerializeField] ETimeState timeState;
+    public ETimeState timeState;
 
     private void Awake()
     {
@@ -51,25 +51,6 @@ public class Crank : MonoBehaviour
     }
     private void Update()
     {
-        // Handle crank input and state changes
-      
-            if (timeState == ETimeState.Idle && Input.GetKeyDown(KeyCode.X))
-            {
-                timeState = ETimeState.WindingForward;
-            }
-            else if (Input.GetKeyUp(KeyCode.X))
-            {
-                StartTicking();
-            }
-            else if (timeState == ETimeState.Idle && Input.GetKeyDown(KeyCode.Z))
-            {
-                timeState = ETimeState.WindingReverse;
-            }
-            else if (Input.GetKeyUp(KeyCode.Z))
-            {
-                StartTicking();
-            }
-       
         
         if (timeState == ETimeState.WindingForward)
         {
