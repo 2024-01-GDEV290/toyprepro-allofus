@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Clock : MonoBehaviour
+public class AngleDisplay : MonoBehaviour
 {
     private TextMeshProUGUI clockDisplay;
 
     private void Awake()
     {
         clockDisplay = GetComponent<TextMeshProUGUI>();
-        clockDisplay.text = "Time: 0:00";
+        clockDisplay.text = "Current angle: 0";
     }
 
-    public void UpdateTime()
+    public void UpdateAngle()
     {
-        string time = "Time: " + WindingTime.S.ClockTime();
-        clockDisplay.text = time;
+        string angle = "Current angle: "+ WindingTime.S.degrees.ToString();
+        clockDisplay.text = angle;
     }
 }

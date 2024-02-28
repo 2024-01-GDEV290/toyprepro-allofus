@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 26961935}
   - component: {fileID: 26961934}
   - component: {fileID: 26961933}
+  - component: {fileID: 26961936}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -191,6 +192,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &26961936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26961932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24df58a6a768c2a4bb1cdcf71bb9bde3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 11400000, guid: ec67d27fc2fcf894ab6643b8e48b4ca2, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2021964569}
+        m_TargetAssemblyTypeName: AngleDisplay, Assembly-CSharp
+        m_MethodName: UpdateAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 613241850}
+        m_TargetAssemblyTypeName: Clock, Assembly-CSharp
+        m_MethodName: UpdateTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &50505422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -743,6 +784,7 @@ GameObject:
   - component: {fileID: 613241847}
   - component: {fileID: 613241849}
   - component: {fileID: 613241848}
+  - component: {fileID: 613241850}
   m_Layer: 5
   m_Name: Current Time
   m_TagString: Untagged
@@ -868,6 +910,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613241846}
   m_CullTransparentMesh: 1
+--- !u!114 &613241850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613241846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8964d2efbdc8a4fb1cbf281bcfccbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &668275751
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +1011,7 @@ MonoBehaviour:
   charStartPos: {x: 0, y: 0, z: 0}
   charEndPos: {x: 0, y: 0, z: 0}
   timeState: 0
+  rotate: 0
 --- !u!82 &668275754
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1904,6 +1959,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066683563}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1243967041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243967043}
+  - component: {fileID: 1243967042}
+  m_Layer: 0
+  m_Name: TimeManagementSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1243967042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243967041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6992b817ce40144b5c1cd260b41a77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: {fileID: 11400000, guid: ec67d27fc2fcf894ab6643b8e48b4ca2, type: 2}
+--- !u!4 &1243967043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243967041}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 111.85464, y: 101.19616, z: 0.9439697}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1407818085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 005828017de04084db0f0c8110321cb5,
@@ -2768,6 +2868,7 @@ GameObject:
   - component: {fileID: 2021964566}
   - component: {fileID: 2021964568}
   - component: {fileID: 2021964567}
+  - component: {fileID: 2021964569}
   m_Layer: 5
   m_Name: Current Crank Angle
   m_TagString: Untagged
@@ -2891,6 +2992,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021964565}
   m_CullTransparentMesh: 1
+--- !u!114 &2021964569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021964565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47839aab595a77e439ea4fc0265b08ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5631206637131468066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2977,3 +3090,4 @@ SceneRoots:
   - {fileID: 519007139}
   - {fileID: 50505422}
   - {fileID: 501096129}
+  - {fileID: 1243967043}

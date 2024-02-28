@@ -13,6 +13,14 @@ public enum ETimeState{
     WindingReverse,
     ActorMovement
 }
+
+public enum ERotate
+{
+    idle,
+    forward,
+    reverse
+}
+
 public class Crank : MonoBehaviour
 {
     [Header("===Set in Inspector===")]
@@ -23,14 +31,11 @@ public class Crank : MonoBehaviour
     public float actorMoveSpeed = 10;
     [SerializeField] Gradient skyGradient;
     [SerializeField] Transform celestialBodiesTransform;
-
-    
-
+        
     [Header("Audio")]
     [SerializeField] AudioClip clickSound;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip tickSound;
-
 
     [Header("===Set Dynamically===")]
     public float timeAsRotation;
@@ -38,12 +43,14 @@ public class Crank : MonoBehaviour
     [SerializeField] Vector3 charStartPos;
     [SerializeField] Vector3 charEndPos;
     public ETimeState timeState;
+    public ERotate rotate;
 
     private void Awake()
     {
         timeState = ETimeState.Idle;
+        rotate = ERotate.idle;
         timeAsRotation = cylinder.transform.localEulerAngles.y;
-        audioSource = GetComponent<AudioSource>();  
+        audioSource = GetComponent<AudioSource>();
     }
     private void Start()
     {
@@ -67,14 +74,18 @@ public class Crank : MonoBehaviour
         {
             cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, 360 + timeAsRotation, cylinder.transform.localEulerAngles.z);
         }
+        else if (timeAsRotation > 360)
+        {
+            cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, timeAsRotation - 360, cylinder.transform.localEulerAngles.z);
+        }
 
         // The 360 degrees of the cylinder's rotation = 24 hours
         // 360/24 = 15 degrees per hour
         // 1 min = 15 degrees/60 minutes = .25 degrees
 
         // Update UI and environment visuals
-        ChangeTime();
-        UpdateUI();
+        //UpdateUI();
+        SkyChange();
     }
 
     public void StartTicking()
@@ -84,6 +95,20 @@ public class Crank : MonoBehaviour
         audioSource.Play();
         MoveActors();
         Invoke("StopTicking", 2);
+
+        if (rotate == ERotate.forward)
+        {
+            if (timeAsRotation > WindingTime.S.degrees) { WindingTime.S.AdvanceTime((int) timeAsRotation - WindingTime.S.degrees); }
+            else { WindingTime.S.AdvanceTime((360 + (int) timeAsRotation) - WindingTime.S.degrees); }
+        }
+        else if (rotate == ERotate.reverse)
+        {
+            if (timeAsRotation < WindingTime.S.degrees) { WindingTime.S.RewindTime(WindingTime.S.degrees - (int) timeAsRotation); }
+            else { WindingTime.S.RewindTime((360 + WindingTime.S.degrees) - (int)timeAsRotation); }
+        }
+        rotate = ERotate.idle;
+        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, WindingTime.S.degrees, cylinder.transform.localEulerAngles.z);
+        Debug.Log("Degrees: " + WindingTime.S.degrees.ToString());
     }
 
     public void StopTicking()
@@ -100,24 +125,24 @@ public class Crank : MonoBehaviour
         }
     }
 
-    void ChangeTime()
+    void SkyChange()
     {
         celestialBodiesTransform.eulerAngles = new Vector3(-timeAsRotation,0,0);
         Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
 ;    }
 
-    string GetCurrentTimeString()
-    {
-        float currentHour = Mathf.Floor(timeAsRotation / 15);
-        float currentMinute = Mathf.Floor((timeAsRotation - currentHour * 15) / .25f);
-        return $"{currentHour}:{currentMinute}";
-    }
+    //string GetCurrentTimeString()
+    //{
+    //    float currentHour = Mathf.Floor(timeAsRotation / 15);
+    //    float currentMinute = Mathf.Floor((timeAsRotation - currentHour * 15) / .25f);
+    //    return $"{currentHour}:{currentMinute}";
+    //}
 
-    void UpdateUI()
-    {
-        currentAngleDisplay.text = $"Current Rotation: {timeAsRotation}";
-        currentTimeDisplay.text = $"Current Time: {GetCurrentTimeString()}";
-    }
+    //void UpdateUI()
+    //{
+    //    currentAngleDisplay.text = $"Current Rotation: {timeAsRotation}";
+    //    currentTimeDisplay.text = $"Current Time: {GetCurrentTimeString()}";
+    //}
 
     void PlayClick()
     {
@@ -131,7 +156,9 @@ public class Crank : MonoBehaviour
             PlayClick();
         }
         float rotationAmount = timeFlowRate * Time.deltaTime;
-        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, timeAsRotation + rotationAmount,cylinder.transform.localEulerAngles.z);
+        float newRotation = timeAsRotation + rotationAmount;
+        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, newRotation, cylinder.transform.localEulerAngles.z);
+        rotate = ERotate.forward;
     }
 
     void RotateCounterClockwise()
@@ -140,7 +167,10 @@ public class Crank : MonoBehaviour
         {
             PlayClick();
         }
-        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, timeAsRotation - timeFlowRate * Time.deltaTime, cylinder.transform.localEulerAngles.z);
+        float rotationAmount = timeFlowRate * Time.deltaTime;
+        float newRotation = timeAsRotation - rotationAmount;
+        cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, newRotation, cylinder.transform.localEulerAngles.z);
+        rotate = ERotate.reverse;
     }
     float CalculateArc(float currentAngle,float targetAngle)
     {

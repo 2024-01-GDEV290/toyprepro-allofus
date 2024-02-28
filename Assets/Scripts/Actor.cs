@@ -54,7 +54,7 @@ public class Actor : MonoBehaviour
     {
         foreach (ScheduleEvent e in schedule)
         {
-            if (crank.timeAsRotation >= e.startTime && crank.timeAsRotation < e.endTime) return e;
+            if (WindingTime.S.degrees >= e.startTime && WindingTime.S.degrees < e.endTime) return e;
         }
         return null; 
     }
