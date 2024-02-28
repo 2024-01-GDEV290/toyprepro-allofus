@@ -28,6 +28,6 @@ public class SpriteBillboard : MonoBehaviour
         GameObject player = GameObject.Find("Player");
         Vector2 mainCam2DPos = new Vector2(Camera.main.transform.position.x,Camera.main.transform.position.z); 
         Vector2 parentForward = new Vector2(parent.transform.forward.x,parent.transform.forward.z);
-        Debug.Log(Vector2.Angle(mainCam2DPos,parentForward));
+       /* Debug.Log(Vector2.Angle(mainCam2DPos,parentForward));*/
     }
 }
