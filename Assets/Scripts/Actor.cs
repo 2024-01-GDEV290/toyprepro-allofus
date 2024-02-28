@@ -17,7 +17,9 @@ public class Actor : MonoBehaviour
     {
         if (wayPoint != null && wayPoint.transform.position != transform.position) 
         {
-            transform.position = Vector3.Lerp(transform.position, wayPoint.transform.position, Time.deltaTime * crank.actorMoveSpeed);
+            // We should convert this movement system to use Navmesh eventually. 
+            Vector3 newPosition = new Vector3(wayPoint.transform.position.x, transform.position.y, wayPoint.transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * crank.actorMoveSpeed);
         }
     }
 
