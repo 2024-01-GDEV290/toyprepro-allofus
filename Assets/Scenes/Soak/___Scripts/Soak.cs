@@ -9,7 +9,7 @@ public class Soak : MonoBehaviour
     public ParticleSystem splash;
 
     bool isWet = false;
-    int dryTimer = 200;
+    int dryTimer = 300;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +19,7 @@ public class Soak : MonoBehaviour
             dryTimer -= 1;
         }
 
-        if (dryTimer <= 15) // Play animation before timer resets
+        if (dryTimer <= 50) // Play animation before timer resets
         {
             animator.SetBool("Soaked", false);
         }
@@ -33,10 +33,10 @@ public class Soak : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {   
+        splash.Play();
         if (isWet == false)
         {
             animator.SetBool("Soaked", true);
-            splash.Play();
             isWet = true;
         }
     }
