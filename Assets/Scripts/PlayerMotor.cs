@@ -56,10 +56,10 @@ public class PlayerMotor : MonoBehaviour
         float mouseX = input.x;
         float mouseY = input.y;
 
-/*        // calculate camera rotation for looking up and down
+        // calculate camera rotation for looking up and down
         xRotation -= (mouseY * Time.deltaTime) * ySensitivity;
         xRotation = Mathf.Clamp(xRotation, -80, 80f);
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0.0f, 0.0f);*/
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0.0f, 0.0f);
 
         // Rotate player to look horizontally
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
