@@ -9,7 +9,7 @@ public class Soak : MonoBehaviour
     public ParticleSystem splash;
 
     bool isWet = false;
-    int dryTimer = 300;
+    int dryTimer = 1200;
 
     // Update is called once per frame
     void Update()
@@ -27,7 +27,7 @@ public class Soak : MonoBehaviour
         if (dryTimer <= 0)
         {
             isWet = false;
-            dryTimer = 200;
+            dryTimer = 1200;
         }
     }
 
