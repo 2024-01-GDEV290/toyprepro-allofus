@@ -489,12 +489,12 @@ InputManager:
     m_Name: Move Forward/Backward
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
+    negativeButton: w
+    positiveButton: s
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
-    dead: 0.1
+    dead: 0.2
     sensitivity: 1
     snap: 0
     invert: 0
@@ -510,7 +510,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
-    dead: 0.1
+    dead: 0.2
     sensitivity: 1
     snap: 0
     invert: 0
@@ -526,7 +526,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
-    dead: 0.1
+    dead: 0.2
     sensitivity: 1
     snap: 0
     invert: 0
@@ -542,7 +542,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
-    dead: 0.1
+    dead: 0.2
     sensitivity: 1
     snap: 0
     invert: 0
