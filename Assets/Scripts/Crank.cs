@@ -127,7 +127,7 @@ public class Crank : MonoBehaviour
 
     void SkyChange()
     {
-        celestialBodiesTransform.eulerAngles = new Vector3(-timeAsRotation,0,0);
+        celestialBodiesTransform.eulerAngles = new Vector3(0, 0, -timeAsRotation);
         Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
 ;    }
 

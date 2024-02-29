@@ -39,54 +39,58 @@ public class WindingTime : MonoBehaviour
         _degrees = 0;
         if (S == null) { S = this; }
         skyChange = false;
-        RenderSettings.ambientIntensity = 0;
+        //RenderSettings.ambientIntensity = 0;
+    }
+
+    private void Start()
+    {
         moveTime.Raise();
     }
 
-    private void Update()
-    {
-        if (skyChange)
-        {
-            if (hours < 6 || hours > 18)
-            {
-                if (RenderSettings.ambientIntensity > 0)
-                {
-                    RenderSettings.ambientIntensity -= Time.deltaTime;
-                }
-                else
-                {
-                    RenderSettings.ambientIntensity = 0;
-                    skyChange = false;
-                }
-            }
-            else
-            {
-                float timeFromNoon = Mathf.Abs(12 - hours);
-                float intensityGoal = (6 - timeFromNoon) / 6;
-                float intensityShift = Time.deltaTime * (1 + intensityGoal);
+    //private void Update()
+    //{
+    //    if (skyChange)
+    //    {
+    //        if (hours < 6 || hours > 18)
+    //        {
+    //            if (RenderSettings.ambientIntensity > 0)
+    //            {
+    //                RenderSettings.ambientIntensity -= Time.deltaTime;
+    //            }
+    //            else
+    //            {
+    //                RenderSettings.ambientIntensity = 0;
+    //                skyChange = false;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            float timeFromNoon = Mathf.Abs(12 - hours);
+    //            float intensityGoal = (6 - timeFromNoon) / 6;
+    //            float intensityShift = Time.deltaTime * (1 + intensityGoal);
 
-                if (RenderSettings.ambientIntensity > intensityGoal)
-                {
-                    RenderSettings.ambientIntensity -= intensityShift;
-                    if (RenderSettings.ambientIntensity < intensityGoal)
-                    {
-                        RenderSettings.ambientIntensity = intensityGoal;
-                        skyChange = false;
-                    }
-                }
-                else if ((RenderSettings.ambientIntensity < intensityGoal))
-                {
-                    RenderSettings.ambientIntensity += intensityShift;
-                    if (RenderSettings.ambientIntensity < intensityGoal)
-                    {
-                        RenderSettings .ambientIntensity = intensityGoal;
-                        skyChange = false;
-                    }
-                }
-            }
-        }
-        
-    }
+    //            if (RenderSettings.ambientIntensity > intensityGoal)
+    //            {
+    //                RenderSettings.ambientIntensity -= intensityShift;
+    //                if (RenderSettings.ambientIntensity < intensityGoal)
+    //                {
+    //                    RenderSettings.ambientIntensity = intensityGoal;
+    //                    skyChange = false;
+    //                }
+    //            }
+    //            else if ((RenderSettings.ambientIntensity < intensityGoal))
+    //            {
+    //                RenderSettings.ambientIntensity += intensityShift;
+    //                if (RenderSettings.ambientIntensity < intensityGoal)
+    //                {
+    //                    RenderSettings .ambientIntensity = intensityGoal;
+    //                    skyChange = false;
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //}
 
     public void AdvanceTime(int steps)
     {

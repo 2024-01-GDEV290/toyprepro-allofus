@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class AngleDisplay : MonoBehaviour
 {
-    private TextMeshProUGUI clockDisplay;
+    private TextMeshProUGUI angleText;
 
     private void Awake()
     {
-        clockDisplay = GetComponent<TextMeshProUGUI>();
-        clockDisplay.text = "Current angle: 0";
+        angleText = GetComponent<TextMeshProUGUI>();
+        angleText.text = "Current angle: 0";
     }
 
     public void UpdateAngle()
     {
-        string angle = "Current angle: "+ WindingTime.S.degrees.ToString();
-        clockDisplay.text = angle;
+        string angle = "Current angle: " + WindingTime.S.degrees.ToString();
+        angleText.text = angle;
     }
 }
