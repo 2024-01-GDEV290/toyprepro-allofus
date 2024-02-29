@@ -25,10 +25,15 @@ public class Shocker : MonoBehaviour
 	private bool is_shocking = false;
 	private bool closed_interact = false;
 	
+	public opengate opengate;
+	public egate_closed egate;
+	
+	public GameObject lightning;
+	
     // Start is called before the first frame update
     void Start()
     {
-    
+		ray_end.SetActive(false);
     }
 
     // Update is called once per frame
@@ -44,16 +49,18 @@ public class Shocker : MonoBehaviour
 		
 		Physics.Raycast(transform.position, transform.forward, out sro_data, 10);
 		Physics.Raycast(transform.position, transform.forward, out src_data, 10);
-			
+		
+		lightning.transform.Rotate(0, 0, 10, Space.Self);
 		
 		if (shocker_intensity != 0)
 		{
 			shock_connect(sro_data);
-		}
-		
-		if (shocker_intensity == 0)
-		{
+			lightning.SetActive(true);
+
+
+		} else {
 			is_shocking = false;
+			lightning.SetActive(false);
 		}
 		
 		
@@ -64,7 +71,6 @@ public class Shocker : MonoBehaviour
 			closed_interact = false;
 		}
 		
-		Debug.Log(closed_interact);
     }
 	
 	void shock_connect(RaycastHit data)
@@ -76,15 +82,12 @@ public class Shocker : MonoBehaviour
 			is_shocking = true;
 		}
 		
-		if (is_shocking == true)
-		{
-			Debug.Log("Searching...");
-		}
+		opengate.updateLightning(ray_end.transform.position);
 		
 		
 		if (is_shocking == true && closed_interact == true)
 		{
-			Debug.Log("Shocking!! SHOCKING!!!!");
+			egate.open_door();
 		}
 	}
 }
