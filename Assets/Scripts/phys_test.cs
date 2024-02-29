@@ -23,11 +23,13 @@ public class phys_test : MonoBehaviour
 	
 	double lowerThreshold = -1;
     double upperThreshold = -0.2;
+
+	public float thrust = 1f;
 	
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -87,6 +89,7 @@ public class phys_test : MonoBehaviour
 		} else {
 			rb.AddRelativeForce((input * Time.deltaTime), (input * Time.deltaTime), (-input * Time.deltaTime)/6, ForceMode.Impulse);
 			rb.AddTorque(0, (input * Time.deltaTime), -(input/2 * Time.deltaTime));
+			//rb.AddForce(transform.forward * thrust);
 		}
 	}
 	
@@ -97,8 +100,9 @@ public class phys_test : MonoBehaviour
 		{
 		
 		} else {
-			rb.AddRelativeForce(-(input * Time.deltaTime), (input * Time.deltaTime), (-input * Time.deltaTime)/6, ForceMode.Impulse);
-			rb.AddTorque(0, -(input * Time.deltaTime), -(input/2 * Time.deltaTime));
-		}
+            rb.AddRelativeForce(-(input * Time.deltaTime), (input * Time.deltaTime), (-input * Time.deltaTime)/6, ForceMode.Impulse);
+            rb.AddTorque(0, -(input * Time.deltaTime), -(input/2 * Time.deltaTime));
+            //rb.AddForce(transform.forward * thrust);
+        }
 	}
 }
