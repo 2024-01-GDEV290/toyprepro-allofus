@@ -55,7 +55,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""4e941c4c-6546-4dae-ab4c-d427f82c0caa"",
                     ""expectedControlType"": ""Button"",
@@ -253,7 +253,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -264,7 +264,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -322,7 +322,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Movement = m_OnFoot.FindAction("Movement", throwIfNotFound: true);
         m_OnFoot_Jump = m_OnFoot.FindAction("Jump", throwIfNotFound: true);
         m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
-        m_OnFoot_Attack = m_OnFoot.FindAction("Attack", throwIfNotFound: true);
+        m_OnFoot_Interact = m_OnFoot.FindAction("Interact", throwIfNotFound: true);
         m_OnFoot_ResetScene = m_OnFoot.FindAction("Reset Scene", throwIfNotFound: true);
         m_OnFoot_AdvanceTime = m_OnFoot.FindAction("Advance Time", throwIfNotFound: true);
         m_OnFoot_ReverseTime = m_OnFoot.FindAction("Reverse Time", throwIfNotFound: true);
@@ -390,7 +390,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Movement;
     private readonly InputAction m_OnFoot_Jump;
     private readonly InputAction m_OnFoot_Look;
-    private readonly InputAction m_OnFoot_Attack;
+    private readonly InputAction m_OnFoot_Interact;
     private readonly InputAction m_OnFoot_ResetScene;
     private readonly InputAction m_OnFoot_AdvanceTime;
     private readonly InputAction m_OnFoot_ReverseTime;
@@ -401,7 +401,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_OnFoot_Movement;
         public InputAction @Jump => m_Wrapper.m_OnFoot_Jump;
         public InputAction @Look => m_Wrapper.m_OnFoot_Look;
-        public InputAction @Attack => m_Wrapper.m_OnFoot_Attack;
+        public InputAction @Interact => m_Wrapper.m_OnFoot_Interact;
         public InputAction @ResetScene => m_Wrapper.m_OnFoot_ResetScene;
         public InputAction @AdvanceTime => m_Wrapper.m_OnFoot_AdvanceTime;
         public InputAction @ReverseTime => m_Wrapper.m_OnFoot_ReverseTime;
@@ -423,9 +423,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
             @ResetScene.started += instance.OnResetScene;
             @ResetScene.performed += instance.OnResetScene;
             @ResetScene.canceled += instance.OnResetScene;
@@ -448,9 +448,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
             @ResetScene.started -= instance.OnResetScene;
             @ResetScene.performed -= instance.OnResetScene;
             @ResetScene.canceled -= instance.OnResetScene;
@@ -482,7 +482,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnResetScene(InputAction.CallbackContext context);
         void OnAdvanceTime(InputAction.CallbackContext context);
         void OnReverseTime(InputAction.CallbackContext context);

@@ -18,6 +18,13 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private float jumpHeight = 1.5f;
 
+    [Header("Interact")]
+    [SerializeField] float interactRange = 1f;
+    [SerializeField] LayerMask interactiveObjectLayer;
+    [SerializeField] GameObject interactionTarget;
+    [SerializeField] GameEventTrigger withinInteractRange;
+    [SerializeField] GameEventTrigger outOfInteractRange;
+
     [Header("Camera/Look")]
     [SerializeField] private Camera cam;
     private float xRotation = 0.0f;
@@ -37,6 +44,11 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
+        
+    }
+    private void FixedUpdate()
+    {
+        CheckInteractionTarget();
     }
 
     public void ProcessMove(Vector2 input)
@@ -49,6 +61,28 @@ public class PlayerMotor : MonoBehaviour
         if (isGrounded && playerVelocity.y < 0) playerVelocity.y = -2f;
         controller.Move(playerVelocity * Time.deltaTime);
 
+    }
+
+    public void CheckInteractionTarget()
+    {
+        
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,out hit, interactRange, interactiveObjectLayer))
+        {
+            Debug.Log("You are within interact range of an interactive object.");
+            if (interactionTarget != hit.transform.gameObject)
+            {
+                interactionTarget = hit.transform.gameObject;
+                withinInteractRange.Raise();
+
+            }
+
+        } else if (interactionTarget != null)
+            {
+                interactionTarget = null;
+                outOfInteractRange.Raise();
+            }
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * interactRange, Color.green);
     }
 
     public void ProcessLook(Vector2 input)
