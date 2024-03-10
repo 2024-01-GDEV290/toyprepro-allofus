@@ -17,6 +17,7 @@ public class Actor : MonoBehaviour
     Dictionary<Item, string> reactionTable;
 
     [Header("Set Dynamically")]
+    [SerializeField] List<Item> inventory;
     [SerializeField] PlayerMotor player;
     [SerializeField] ScheduleEvent currentScheduleEvent;
     [SerializeField] GameObject wayPoint;
@@ -69,6 +70,7 @@ public class Actor : MonoBehaviour
     {
         if (player.inventory.Contains(item))
         {
+            inventory.Add(item);
             player.inventory.Remove(item);
         }
         
