@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
+    [SerializeField] List<Item> inventory;
     
     [Header("Walk")]
     private Vector3 playerVelocity;
@@ -37,7 +38,8 @@ public class PlayerMotor : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        controller = GetComponent<CharacterController>(); 
+        controller = GetComponent<CharacterController>();
+        inventory = new List<Item>();
     }
 
     // Update is called once per frame
@@ -107,6 +109,20 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
+    public void Interact()
+    {
+        if (!interactionTarget) return;
+        ItemAvatar targetItem = interactionTarget.GetComponent<ItemAvatar>();
+        if (targetItem)
+        {
+            CollectItem(targetItem);
+        }
+    }
+
+    void CollectItem(ItemAvatar targetItem)
+    {
+        inventory.Add(targetItem.Collect());
+    }
     // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
     public void AdvanceTime(InputAction.CallbackContext ctx)
     {

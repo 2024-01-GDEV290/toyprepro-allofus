@@ -28,6 +28,9 @@ public class InputManager : MonoBehaviour
         onFoot.ReverseTime.performed += ctx => motor.ReverseTime(ctx);
         onFoot.ReverseTime.canceled += ctx => motor.ReverseTime(ctx);
 
+        // Interact with Items or NPCs
+        onFoot.Interact.performed += ctx => motor.Interact();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

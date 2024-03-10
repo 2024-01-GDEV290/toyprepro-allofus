@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ItemAvatar : MonoBehaviour
 {
-    [SerializeField] Item item;
+    public Item item;
 
-    void Collect()
+    public Item Collect()
     {
-        /*Emit event to add item SO to player inventory*/
+        Debug.Log($"Collected {item.itemName}");
+        Destroy(gameObject);
         Destroy(this);
+        return item;
     }
 }

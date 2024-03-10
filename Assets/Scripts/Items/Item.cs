@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Item : ScriptableObject
 {
-    [SerializeField] string itemName;
+    public string itemName;
+
 }
