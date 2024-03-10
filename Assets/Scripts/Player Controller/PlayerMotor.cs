@@ -121,6 +121,8 @@ public class PlayerMotor : MonoBehaviour
 
     void CollectItem(ItemAvatar targetItem)
     {
+        interactionTarget = null;
+        outOfInteractRange.Raise();
         inventory.Add(targetItem.Collect());
     }
     // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
