@@ -718,9 +718,9 @@ GameObject:
   m_Component:
   - component: {fileID: 499930425}
   - component: {fileID: 499930424}
-  - component: {fileID: 499930423}
   - component: {fileID: 499930422}
-  m_Layer: 0
+  - component: {fileID: 499930426}
+  m_Layer: 6
   m_Name: NPC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,30 +744,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e86d1088f2f950a4a97120af63cb9905, type: 2}
   - {fileID: 11400000, guid: e37754989c66b774db3f69339e1b08b2, type: 2}
   crank: {fileID: 668275753}
+  defaultDialogue: Lovely weather we're having.
+  itemsNoticed: []
+  itemReactions: []
+  player: {fileID: 0}
   currentScheduleEvent: {fileID: 0}
   wayPoint: {fileID: 0}
---- !u!64 &499930423
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499930421}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &499930424
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -775,7 +757,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499930421}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &499930425
 Transform:
   m_ObjectHideFlags: 0
@@ -793,6 +775,29 @@ Transform:
   - {fileID: 1433470887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &499930426
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499930421}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &501096128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,8 +1775,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Controls: \nWASD: Walk\nSpace: Jump\nMove time forward: X\nMove time backward:
-    Z"
+  m_text: "Controls: \nInteract: Click\nWASD: Walk\nSpace: Jump\nMove time forward:
+    X\nMove time backward: Z"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1798,8 +1803,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2424,7 +2429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -228, y: 122}
+  m_AnchoredPosition: {x: -228, y: 128.9}
   m_SizeDelta: {x: 450, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1409791194
@@ -2957,9 +2962,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1658147858}
   - component: {fileID: 1658147857}
-  - component: {fileID: 1658147856}
   - component: {fileID: 1658147855}
-  m_Layer: 0
+  - component: {fileID: 1658147859}
+  m_Layer: 6
   m_Name: NPC3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2983,30 +2988,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b74a92d1726e39e4ca98e5b84db48bf2, type: 2}
   - {fileID: 11400000, guid: 41b76e817b9f172418b5d36b05854b4d, type: 2}
   crank: {fileID: 668275753}
+  defaultDialogue: 'If only I were tall enough to reach one of those nice, ripe apples. '
+  itemsNoticed:
+  - {fileID: 11400000, guid: 8a2b0759b5e9b3d4e9e744d7a9dbbe68, type: 2}
+  itemReactions:
+  - Thanks for the apple, friendo!
+  player: {fileID: 0}
   currentScheduleEvent: {fileID: 0}
   wayPoint: {fileID: 0}
---- !u!64 &1658147856
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1658147854}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1658147857
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3014,7 +3003,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658147854}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1658147858
 Transform:
   m_ObjectHideFlags: 0
@@ -3032,6 +3021,29 @@ Transform:
   - {fileID: 1929578303}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1658147859
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658147854}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1670846023
 GameObject:
   m_ObjectHideFlags: 0
@@ -3624,37 +3636,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1834359715}
   - component: {fileID: 1834359714}
-  - component: {fileID: 1834359712}
   - component: {fileID: 1834359716}
-  m_Layer: 0
+  - component: {fileID: 1834359717}
+  m_Layer: 6
   m_Name: NPC1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1834359712
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834359711}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1834359714
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3662,7 +3652,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834359711}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1834359715
 Transform:
   m_ObjectHideFlags: 0
@@ -3697,8 +3687,35 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46d11889206ec604185bc34a0201ac57, type: 2}
   - {fileID: 11400000, guid: 834bd5a879e5cbf42814b7e37c7607a9, type: 2}
   crank: {fileID: 668275753}
+  defaultDialogue: How about that sportsball, eh champ?
+  itemsNoticed: []
+  itemReactions: []
+  player: {fileID: 0}
   currentScheduleEvent: {fileID: 0}
   wayPoint: {fileID: 0}
+--- !u!136 &1834359717
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834359711}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1835658717
 GameObject:
   m_ObjectHideFlags: 0

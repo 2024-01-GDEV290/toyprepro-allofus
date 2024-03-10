@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
-    [SerializeField] List<Item> inventory;
+    public List<Item> inventory;
     
     [Header("Walk")]
     private Vector3 playerVelocity;
@@ -71,7 +71,6 @@ public class PlayerMotor : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,out hit, interactRange, interactiveObjectLayer))
         {
-            Debug.Log("You are within interact range of an interactive object.");
             if (interactionTarget != hit.transform.gameObject)
             {
                 interactionTarget = hit.transform.gameObject;
@@ -113,9 +112,13 @@ public class PlayerMotor : MonoBehaviour
     {
         if (!interactionTarget) return;
         ItemAvatar targetItem = interactionTarget.GetComponent<ItemAvatar>();
+        Actor targetActor = interactionTarget.GetComponent<Actor>();
         if (targetItem)
         {
             CollectItem(targetItem);
+        }
+        else if (targetActor) {
+            targetActor.ReciteLines();
         }
     }
 

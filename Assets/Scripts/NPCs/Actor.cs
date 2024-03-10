@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -9,10 +10,37 @@ public class Actor : MonoBehaviour
     [SerializeField] ScheduleEvent[] schedule;
     [SerializeField] Crank crank;
 
+    [TextArea]
+    [SerializeField] string defaultDialogue;
+    [SerializeField] List<Item> itemsNoticed;
+    [SerializeField] List<string> itemReactions;
+    Dictionary<Item, string> reactionTable;
+
     [Header("Set Dynamically")]
+    [SerializeField] PlayerMotor player;
     [SerializeField] ScheduleEvent currentScheduleEvent;
     [SerializeField] GameObject wayPoint;
 
+    private void Awake()
+    {
+        reactionTable = new Dictionary<Item, string>();
+        player = GameObject.Find("Player").GetComponent<PlayerMotor>();
+        if (itemsNoticed.Count > 0 )
+        {
+            for (int i = 0; i < itemsNoticed.Count; i += 1)
+            {
+                string reaction = "Generic item reaction dialogue!";
+                if (itemReactions.Count >= i + 1)
+                {
+                    reaction = itemReactions[i];
+                }
+
+                reactionTable.Add(itemsNoticed[i], reaction);
+
+            }
+        }
+
+    }
     private void Update()
     {
         if (wayPoint != null && wayPoint.transform.position != transform.position) 
@@ -21,6 +49,29 @@ public class Actor : MonoBehaviour
             Vector3 newPosition = new Vector3(wayPoint.transform.position.x, transform.position.y, wayPoint.transform.position.z);
             transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * crank.actorMoveSpeed);
         }
+    }
+
+    public void ReciteLines()
+    {
+       foreach (Item item in player.inventory)
+        {
+            if (itemsNoticed.Contains(item))
+            {
+                Debug.Log(reactionTable[item]);
+                TakeItem(item);
+                return;
+            }
+        }
+        Debug.Log(defaultDialogue);
+    }
+
+    void TakeItem(Item item)
+    {
+        if (player.inventory.Contains(item))
+        {
+            player.inventory.Remove(item);
+        }
+        
     }
 
     public void MoveToScheduledLocation()
