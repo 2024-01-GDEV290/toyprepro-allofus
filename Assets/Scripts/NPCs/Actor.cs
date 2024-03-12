@@ -9,37 +9,23 @@ public class Actor : MonoBehaviour
     [Header("Set in Inspector")]
     [SerializeField] ScheduleEvent[] schedule;
     [SerializeField] Crank crank;
+    public string displayName;
 
     [TextArea]
-    [SerializeField] string defaultDialogue;
-    [SerializeField] List<Item> itemsNoticed;
-    [SerializeField] List<string> itemReactions;
-    Dictionary<Item, string> reactionTable;
+    [SerializeField] protected string defaultDialogue;
+    [SerializeField] Item desiredItem;
+    [TextArea][SerializeField] string satisfiedDialogue;
+    [SerializeField] GameEventTrigger openGateTrigger;
 
     [Header("Set Dynamically")]
     [SerializeField] List<Item> inventory;
-    [SerializeField] PlayerMotor player;
+    [SerializeField] protected PlayerMotor player;
     [SerializeField] ScheduleEvent currentScheduleEvent;
     [SerializeField] GameObject wayPoint;
 
     private void Awake()
     {
-        reactionTable = new Dictionary<Item, string>();
-        player = GameObject.Find("Player").GetComponent<PlayerMotor>();
-        if (itemsNoticed.Count > 0 )
-        {
-            for (int i = 0; i < itemsNoticed.Count; i += 1)
-            {
-                string reaction = "Generic item reaction dialogue!";
-                if (itemReactions.Count >= i + 1)
-                {
-                    reaction = itemReactions[i];
-                }
-
-                reactionTable.Add(itemsNoticed[i], reaction);
-
-            }
-        }
+        if (displayName == null) displayName = gameObject.name;
 
     }
     private void Update()
@@ -54,12 +40,13 @@ public class Actor : MonoBehaviour
 
     public void ReciteLines()
     {
-       foreach (Item item in player.inventory)
+        foreach (Item item in player.inventory)
         {
-            if (itemsNoticed.Contains(item))
+            if (item == desiredItem)
             {
-                Debug.Log(reactionTable[item]);
+                Debug.Log(satisfiedDialogue);
                 TakeItem(item);
+                openGateTrigger.Raise();
                 return;
             }
         }
@@ -70,10 +57,9 @@ public class Actor : MonoBehaviour
     {
         if (player.inventory.Contains(item))
         {
-            inventory.Add(item);
             player.inventory.Remove(item);
         }
-        
+
     }
 
     public void MoveToScheduledLocation()
