@@ -12,7 +12,7 @@ public class AppleSpawn : MonoBehaviour
         {
             GameObject newApple = Instantiate(applePrefab);
             newApple.transform.SetParent(this.transform);
-            newApple.transform.position = Vector3.zero;
+            newApple.transform.localPosition = Vector3.zero;
             newApple.GetComponent<AppleTime>().animating = true;
             newApple.GetComponent<AppleTime>().onTree = true;
         }

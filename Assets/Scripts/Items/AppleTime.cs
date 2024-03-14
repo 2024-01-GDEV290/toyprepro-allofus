@@ -31,6 +31,7 @@ public class AppleTime : MonoBehaviour
         {
             anim.Play("AppleAnim", 0, ripeness);
             if (ripeness >= 0.4) { onTree = false; }
+            if (WindingTime.S.hours >= 9 && this.GetComponent<Rigidbody>().isKinematic) { this.GetComponent<Rigidbody>().isKinematic = false; }
         }
     }
 }
