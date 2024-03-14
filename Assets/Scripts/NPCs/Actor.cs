@@ -38,6 +38,11 @@ public class Actor : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        transform.LookAt(Camera.main.transform.position);
+        
+    }
     public void ReciteLines()
     {
         foreach (Item item in player.inventory)
