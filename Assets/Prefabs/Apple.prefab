@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 7015732599590522507}
   - component: {fileID: 5677928173400510177}
   - component: {fileID: 2713243603289908916}
+  - component: {fileID: 7155804372873272416}
   - component: {fileID: 4951156203039537828}
   - component: {fileID: 854423001310457048}
+  - component: {fileID: 4336666466298556537}
   m_Layer: 6
   m_Name: Apple
   m_TagString: Untagged
@@ -64,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df5b8a80c89ebb34f85a5caa3e55789d, type: 2}
+  - {fileID: -876546973899608171, guid: d691743690aa28e4ab64bcfe79b22996, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,6 +109,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &7155804372873272416
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697316840801825811}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 16d77110e48824f4dbde1f7ee36c8d45, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4951156203039537828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,3 +155,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c708ddf2a8b2c55478326698c3628441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4336666466298556537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697316840801825811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24df58a6a768c2a4bb1cdcf71bb9bde3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 11400000, guid: ec67d27fc2fcf894ab6643b8e48b4ca2, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 854423001310457048}
+        m_TargetAssemblyTypeName: AppleTime, Assembly-CSharp
+        m_MethodName: AppleAnim
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
