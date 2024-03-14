@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPointName: FirstHouse
   startTime: 0
-  endTime: 120
+  endTime: 8

@@ -6,9 +6,9 @@ using UnityEngine;
 public class WindingTime : MonoBehaviour
 {
     private int _degrees;
-    private const int MAX_DEGREE = 360;
-    private const int DEG_PER_HR = 15;
-    private const int MIN_PER_DEG = 4;
+    public const int MAX_DEGREE = 360;
+    public const int DEG_PER_HR = 15;
+    public const int MIN_PER_DEG = 4;
     //private bool skyChange;
     public static WindingTime S;
     public GameEventTrigger moveTime;

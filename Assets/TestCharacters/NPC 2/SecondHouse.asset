@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SecondHouse
   m_EditorClassIdentifier: 
   wayPointName: SecondHouse
-  startTime: 320
-  endTime: 360
+  startTime: 21
+  endTime: 24

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunScript : MonoBehaviour
+public class Celestial : MonoBehaviour
 {
     private Animator anim;
 
@@ -11,9 +11,9 @@ public class SunScript : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void MoveSun()
+    public void Rotation()
     {
-        float frame = WindingTime.S.hours / 24f;
-        anim.Play("SunAnim", 0, frame);
+        float cycle = WindingTime.S.hours / 24f;
+        anim.Play("CelestialAnim", 0, cycle);
     }
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ThirdHouse
   m_EditorClassIdentifier: 
   wayPointName: ThirdHouse
-  startTime: 90
-  endTime: 250
+  startTime: 6
+  endTime: 17

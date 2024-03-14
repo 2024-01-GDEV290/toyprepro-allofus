@@ -33,20 +33,22 @@ public class PlayerMotor : MonoBehaviour
     public float ySensitivity = 30f;
 
     [Header("Advance/Reverse time")]
-    [SerializeField] Crank crank; 
+    //[SerializeField] Crank crank; 
+    [SerializeField] private float timeSinceAdvance;
 
     // Start is called before the first frame update
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         inventory = new List<Item>();
+        timeSinceAdvance = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         isGrounded = controller.isGrounded;
-        
+        timeSinceAdvance += Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -133,26 +135,32 @@ public class PlayerMotor : MonoBehaviour
     // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
     public void AdvanceTime(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && crank.timeState == ETimeState.Idle)
+        if (ctx.performed && timeSinceAdvance > 1)
         {
-            crank.timeState = ETimeState.WindingForward;
-        } else if (ctx.canceled && crank.timeState == ETimeState.WindingForward)
-        {
-            crank.StartTicking();
+            timeSinceAdvance = 0;
+            WindingTime.S.AdvanceTime(WindingTime.MAX_DEGREE / 24);
         }
+
+        //if (ctx.performed && crank.timeState == ETimeState.Idle)
+        //{
+        //    crank.timeState = ETimeState.WindingForward;
+        //} else if (ctx.canceled && crank.timeState == ETimeState.WindingForward)
+        //{
+        //    crank.StartTicking();
+        //}
 
     }
 
     public void ReverseTime(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && crank.timeState == ETimeState.Idle)
-        {
-            crank.timeState = ETimeState.WindingReverse;
-        }
-        else if (ctx.canceled && crank.timeState == ETimeState.WindingReverse)
-        {
-            crank.StartTicking();
-        }
+        //if (ctx.performed && crank.timeState == ETimeState.Idle)
+        //{
+        //    crank.timeState = ETimeState.WindingReverse;
+        //}
+        //else if (ctx.canceled && crank.timeState == ETimeState.WindingReverse)
+        //{
+        //    crank.StartTicking();
+        //}
     }
 
     public void ResetScene()

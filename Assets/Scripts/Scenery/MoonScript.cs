@@ -13,7 +13,7 @@ public class MoonScript : MonoBehaviour
 
     public void MoveMoon()
     {
-        float frame = WindingTime.S.degrees / 360f;
+        float frame = WindingTime.S.hours / 24f;
         anim.Play("MoonAnim", 0, frame);
     }
 }
