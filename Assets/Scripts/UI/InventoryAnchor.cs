@@ -5,19 +5,26 @@ using UnityEngine.UI;
 
 public class InventoryAnchor: MonoBehaviour
 {
-    [SerializeField] Image iconPrefab;
-    [SerializeField] List<Image> icons = new List<Image>();
+    [SerializeField] GameObject iconPrefab;
+    [SerializeField] List<GameObject> icons;
     private PlayerMotor player;
     private void Awake()
     {
+        icons = new List<GameObject>();
         player = GameObject.Find("Player").GetComponent<PlayerMotor>();
     }
 
     public void DisplayPlayerInventory()
     {
+        foreach(GameObject icon in icons)
+        {
+            Destroy(icon);
+        }
         foreach(Item item in player.inventory)
         {
-            icons.Add(Instantiate(iconPrefab));
+            GameObject icon = Instantiate(iconPrefab);
+            /*icon.GetComponent<Image>()*/
+            icons.Add(icon);
 
         }
     }
