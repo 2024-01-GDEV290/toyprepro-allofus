@@ -29,7 +29,7 @@ public class Crank : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentAngleDisplay;
     [SerializeField] TextMeshProUGUI currentTimeDisplay;
     public float actorMoveSpeed = 10;
-    [SerializeField] Gradient skyGradient;
+    //[SerializeField] Gradient skyGradient;
     [SerializeField] Transform celestialBodiesTransform;
         
     [Header("Audio")]
@@ -128,7 +128,7 @@ public class Crank : MonoBehaviour
     void SkyChange()
     {
         celestialBodiesTransform.eulerAngles = new Vector3(0, 0, -timeAsRotation);
-        Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
+        //Camera.main.backgroundColor = skyGradient.Evaluate(CalculateArc(timeAsRotation, 180) / 180)
 ;    }
 
     //string GetCurrentTimeString()
@@ -172,6 +172,7 @@ public class Crank : MonoBehaviour
         cylinder.transform.localEulerAngles = new Vector3(cylinder.transform.localEulerAngles.x, newRotation, cylinder.transform.localEulerAngles.z);
         rotate = ERotate.reverse;
     }
+
     float CalculateArc(float currentAngle,float targetAngle)
     {
         float delta = Mathf.Abs(targetAngle - currentAngle);

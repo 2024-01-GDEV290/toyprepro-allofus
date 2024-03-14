@@ -9,7 +9,7 @@ public class WindingTime : MonoBehaviour
     private const int MAX_DEGREE = 360;
     private const int DEG_PER_HR = 15;
     private const int MIN_PER_DEG = 4;
-    private bool skyChange;
+    //private bool skyChange;
     public static WindingTime S;
     public GameEventTrigger moveTime;
 
@@ -38,7 +38,7 @@ public class WindingTime : MonoBehaviour
     {
         _degrees = 0;
         if (S == null) { S = this; }
-        skyChange = false;
+        //skyChange = false;
         //RenderSettings.ambientIntensity = 0;
     }
 
@@ -100,7 +100,7 @@ public class WindingTime : MonoBehaviour
             _degrees -= MAX_DEGREE;
         }
 
-        skyChange = true;
+        //skyChange = true;
         moveTime.Raise();
     }
 
@@ -112,7 +112,7 @@ public class WindingTime : MonoBehaviour
             _degrees += MAX_DEGREE;
         }
 
-        skyChange = true;
+        //skyChange = true;
         moveTime.Raise();
     }
 

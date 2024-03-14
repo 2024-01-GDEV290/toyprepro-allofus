@@ -48,6 +48,7 @@ public class PlayerMotor : MonoBehaviour
         isGrounded = controller.isGrounded;
         
     }
+
     private void FixedUpdate()
     {
         CheckInteractionTarget();
@@ -128,6 +129,7 @@ public class PlayerMotor : MonoBehaviour
         outOfInteractRange.Raise();
         inventory.Add(targetItem.Collect());
     }
+
     // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
     public void AdvanceTime(InputAction.CallbackContext ctx)
     {
@@ -157,7 +159,4 @@ public class PlayerMotor : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
- 
-
 }
