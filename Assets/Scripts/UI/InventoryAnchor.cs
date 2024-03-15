@@ -23,9 +23,10 @@ public class InventoryAnchor: MonoBehaviour
         foreach(Item item in player.inventory)
         {
             GameObject icon = Instantiate(iconPrefab);
-            /*icon.GetComponent<Image>()*/
+            icon.transform.SetParent(transform, false);
+            Image iconImage = icon.GetComponent<Image>();
+            iconImage.sprite = item.itemIcon;
             icons.Add(icon);
-
         }
     }
 }

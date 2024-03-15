@@ -290,6 +290,7 @@ MonoBehaviour:
   withinInteractRange: {fileID: 11400000, guid: 1fd6c26664ac64e4dacede4f01451456,
     type: 2}
   outOfInteractRange: {fileID: 11400000, guid: 9e04198d713f85345860dfcd8c10b046, type: 2}
+  updateInventoryUI: {fileID: 11400000, guid: 7fa5480e98285674e8340f8a00143d4f, type: 2}
   cam: {fileID: 4088122790713567722}
   xSensitivity: 30
   ySensitivity: 30

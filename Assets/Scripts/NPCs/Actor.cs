@@ -60,11 +60,7 @@ public class Actor : MonoBehaviour
 
     void TakeItem(Item item)
     {
-        if (player.inventory.Contains(item))
-        {
-            player.inventory.Remove(item);
-        }
-
+        player.LoseItem(item);
     }
 
     public void MoveToScheduledLocation()

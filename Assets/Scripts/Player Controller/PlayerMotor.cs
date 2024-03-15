@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using static UnityEditor.Progress;
 
 public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
-    public List<Item> inventory;
+    public HashSet<Item> inventory;
     
     [Header("Walk")]
     private Vector3 playerVelocity;
@@ -25,6 +26,7 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] GameObject interactionTarget;
     [SerializeField] GameEventTrigger withinInteractRange;
     [SerializeField] GameEventTrigger outOfInteractRange;
+    [SerializeField] GameEventTrigger updateInventoryUI; 
 
     [Header("Camera/Look")]
     [SerializeField] private Camera cam;
@@ -39,7 +41,7 @@ public class PlayerMotor : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        inventory = new List<Item>();
+        inventory = new HashSet<Item>();
     }
 
     // Update is called once per frame
@@ -127,6 +129,16 @@ public class PlayerMotor : MonoBehaviour
         interactionTarget = null;
         outOfInteractRange.Raise();
         inventory.Add(targetItem.Collect());
+        updateInventoryUI.Raise();
+    }
+
+    public void LoseItem(Item item)
+    {
+        if (inventory.Contains(item))
+        {
+            inventory.Remove(item);
+        }
+        updateInventoryUI.Raise();
     }
     // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
     public void AdvanceTime(InputAction.CallbackContext ctx)
