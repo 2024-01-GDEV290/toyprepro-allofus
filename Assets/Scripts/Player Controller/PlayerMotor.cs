@@ -9,7 +9,9 @@ using static UnityEditor.Progress;
 public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
-    public HashSet<Item> inventory;
+    public List<Item> inventory;
+    public GameObject currentlyHeldItem;
+    public Transform heldItemAnchor;
     
     [Header("Walk")]
     private Vector3 playerVelocity;
@@ -41,7 +43,7 @@ public class PlayerMotor : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        inventory = new HashSet<Item>();
+        inventory = new List<Item>();
     }
 
     // Update is called once per frame
@@ -128,17 +130,31 @@ public class PlayerMotor : MonoBehaviour
     {
         interactionTarget = null;
         outOfInteractRange.Raise();
-        inventory.Add(targetItem.Collect());
-        updateInventoryUI.Raise();
+        if (targetItem.item.itemName == "Gear")
+        {
+            inventory.Add(targetItem.Collect(heldItemAnchor));
+            updateInventoryUI.Raise();
+        } else
+        {
+            DropItem();
+            currentlyHeldItem = targetItem.transform.gameObject;
+            targetItem.Collect(heldItemAnchor);
+        }
+
     }
 
-    public void LoseItem(Item item)
+    public void DropItem()
     {
-        if (inventory.Contains(item))
+        if (heldItemAnchor.childCount > 0)
         {
-            inventory.Remove(item);
+
+            foreach (Transform transform in heldItemAnchor)
+            {
+                transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+            heldItemAnchor.DetachChildren();
+            currentlyHeldItem = null;
         }
-        updateInventoryUI.Raise();
     }
     // Advance and reverse time should eventually fire events, but just wiring them directly to the crank for now. 
     public void AdvanceTime(InputAction.CallbackContext ctx)

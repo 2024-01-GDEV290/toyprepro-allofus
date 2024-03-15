@@ -45,22 +45,21 @@ public class Actor : MonoBehaviour
     }
     public void ReciteLines()
     {
-        foreach (Item item in player.inventory)
-        {
-            if (item == desiredItem)
+
+            if (player.currentlyHeldItem.GetComponent<ItemAvatar>().item == desiredItem)
             {
                 Debug.Log(satisfiedDialogue);
-                TakeItem(item);
+                TakeItem();
                 openGateTrigger.Raise();
                 return;
             }
-        }
+
         Debug.Log(defaultDialogue);
     }
 
-    void TakeItem(Item item)
+    void TakeItem()
     {
-        player.LoseItem(item);
+        player.DropItem();
     }
 
     public void MoveToScheduledLocation()
