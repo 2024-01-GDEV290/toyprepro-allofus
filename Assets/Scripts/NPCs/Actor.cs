@@ -46,7 +46,7 @@ public class Actor : MonoBehaviour
     public void ReciteLines()
     {
 
-            if (player.currentlyHeldItem.GetComponent<ItemAvatar>().item == desiredItem)
+            if (player.currentlyHeldItem && player.currentlyHeldItem.GetComponent<ItemAvatar>().item == desiredItem)
             {
                 Debug.Log(satisfiedDialogue);
                 TakeItem();

@@ -132,7 +132,7 @@ public class PlayerMotor : MonoBehaviour
         outOfInteractRange.Raise();
         if (targetItem.item.itemName == "Gear")
         {
-            inventory.Add(targetItem.Collect(heldItemAnchor));
+            inventory.Add(targetItem.Collect());
             updateInventoryUI.Raise();
         } else
         {

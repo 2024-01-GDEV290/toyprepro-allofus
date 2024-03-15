@@ -18,6 +18,11 @@ public class ItemAvatar : MonoBehaviour
             transform.SetParent(newParentTransform, false);
             transform.localPosition = Vector3.zero;
         }
+        else
+        {
+            Destroy(gameObject);
+            Destroy(this);
+        }
 
         return item;
     }
