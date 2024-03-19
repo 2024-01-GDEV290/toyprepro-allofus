@@ -8,10 +8,6 @@ public class ItemAvatar : MonoBehaviour
 
     public Item Collect(Transform newParentTransform = null)
     {
-        /*        Debug.Log($"Collected {item.itemName}");
-                Destroy(gameObject);
-                Destroy(this);
-        */
         if (newParentTransform != null)
         {
             GetComponent<Rigidbody>().isKinematic = true;
@@ -23,7 +19,6 @@ public class ItemAvatar : MonoBehaviour
             Destroy(gameObject);
             Destroy(this);
         }
-
         return item;
     }
 }
